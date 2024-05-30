@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SearchFragment"
+    android:background="@drawable/background">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/city_textview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:context=".HomePageFragment">
+
+        <TextView
+            android:id="@+id/whatsNow"
+            android:layout_width="344dp"
+            android:layout_height="59dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="18dp"
+            android:text="what's now:"
+            android:textColor="@color/white"
+            android:textSize="35sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextView" />
+
+
+        <TextView
+            android:id="@+id/wear_describe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="84dp"
+            android:layout_marginBottom="520dp"
+            android:text="Hot Enough For T-Shirt "
+            android:textColor="@color/white"
+            android:textSize="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="31dp"
+            android:layout_height="16dp"
+            android:layout_marginEnd="86dp"
+            android:layout_marginBottom="92dp"
+            android:text="Agree?"
+            android:textColor="@color/LightGrey"
+            android:textSize="7sp"
+            app:layout_constraintBottom_toTopOf="@+id/Posts"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/weather_describe"
+            android:layout_width="55dp"
+            android:layout_height="29dp"
+            android:layout_marginBottom="193dp"
+            android:text="sunny"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/Posts"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/city"
+            android:layout_width="154dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="19dp"
+            android:gravity="center"
+            android:text="Tel Aviv"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/whatsNow" />
+
+        <TextView
+            android:id="@+id/degree"
+            android:layout_width="55dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="104dp"
+            android:layout_marginEnd="104dp"
+            android:layout_marginBottom="544dp"
+            android:text="30\u00B0C"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/Image_weather"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/dislike"
+            android:layout_width="29dp"
+            android:layout_height="26dp"
+            android:layout_marginEnd="24dp"
+            android:background="?attr/background"
+            android:src="@drawable/dislik"
+            app:layout_constraintBottom_toTopOf="@+id/dis"
+            app:layout_constraintEnd_toStartOf="@+id/like" />
+
+        <ImageView
+            android:id="@+id/changeimageweather"
+            android:layout_width="87dp"
+            android:layout_height="81dp"
+            android:src="@drawable/sun"
+            app:layout_constraintBottom_toTopOf="@+id/weather_describe"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.49"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/like"
+            android:layout_width="31dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="86dp"
+            android:background="?attr/background"
+            android:src="@drawable/lik"
+            app:layout_constraintBottom_toTopOf="@+id/textView1"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageButton
+            android:id="@+id/Image_weather"
+            android:layout_width="46dp"
+            android:layout_height="56dp"
+            android:layout_gravity=""
+            android:layout_marginStart="26dp"
+            android:layout_marginEnd="102dp"
+            android:layout_marginBottom="520dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:src="@drawable/shirt3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toEndOf="@+id/weather_describe" />
+
+        <TextView
+            android:id="@+id/dis"
+            android:layout_width="36dp"
+            android:layout_height="16dp"
+            android:layout_marginEnd="23dp"
+            android:layout_marginBottom="92dp"
+            android:text="Disagree?"
+            android:textColor="@color/LightGrey"
+            android:textSize="7sp"
+            app:layout_constraintBottom_toTopOf="@+id/Posts"
+            app:layout_constraintEnd_toStartOf="@+id/textView1"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/searchFuture"
+            android:layout_width="137dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="4dp"
+            android:background="?attr/background"
+            android:text="Next 7 Days "
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/wear_describe" />
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView"
+            android:layout_width="315dp"
+            android:layout_height="50dp"
+            android:hint="City..."
+            android:textSize="20dp"
+            tools:layout_editor_absoluteX="20dp"
+            tools:layout_editor_absoluteY="21dp" />
+
+        <ImageButton
+            android:id="@+id/serachBar"
+            android:layout_width="34dp"
+            android:layout_height="28dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="fitCenter"
+            android:src="@drawable/search_24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/autoCompleteTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/autoCompleteTextView"
+            app:layout_constraintTop_toTopOf="@+id/autoCompleteTextView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/Posts"
+            android:layout_width="428dp"
+            android:layout_height="300dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginBottom="84dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

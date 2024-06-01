@@ -28,7 +28,7 @@
             android:layout_marginTop="18dp"
             android:text="what's now:"
             android:textColor="@color/white"
-            android:textSize="35sp"
+            android:textSize="40dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextView" />

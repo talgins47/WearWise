@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link PostviewFragment#newInstance} factory method to
+ * Use the {@link testprofile#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PostviewFragment extends Fragment {
+public class testprofile extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +24,7 @@ public class PostviewFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public PostviewFragment() {
+    public testprofile() {
         // Required empty public constructor
     }
 
@@ -34,11 +34,11 @@ public class PostviewFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment PostviewFragment.
+     * @return A new instance of fragment testprofile.
      */
     // TODO: Rename and change types and number of parameters
-    public static PostviewFragment newInstance(String param1, String param2) {
-        PostviewFragment fragment = new PostviewFragment();
+    public static testprofile newInstance(String param1, String param2) {
+        testprofile fragment = new testprofile();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -59,6 +59,6 @@ public class PostviewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_createpost, container, false);
+        return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 }

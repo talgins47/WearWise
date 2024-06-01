@@ -8,33 +8,32 @@
 
 
     <TextView
-        android:id="@+id/NewPost"
+        android:id="@+id/userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="36dp"
         android:text="user name"
-        android:textColor="@color/white"
-        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:textSize="17dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.085"
+        app:layout_constraintHorizontal_bias="0.047"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <TextView
         android:id="@+id/DescribePostview"
-        android:layout_width="388dp"
-        android:layout_height="50dp"
+        android:layout_width="381dp"
+        android:layout_height="45dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
         android:hint=""
-        android:textColorHint="#7EFFFFFF"
+        android:textColorHint="@color/black"
         android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.294"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imagePost" />
 
@@ -47,6 +46,18 @@
         android:src="@drawable/girl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/NewPost" />
+        app:layout_constraintTop_toBottomOf="@+id/userName" />
 
+    <ImageView
+        android:id="@+id/heart"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="11dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/DescribePostview"
+        app:layout_constraintEnd_toStartOf="@+id/imagePost"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/heart" />
 </androidx.constraintlayout.widget.ConstraintLayout>

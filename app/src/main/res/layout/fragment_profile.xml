@@ -12,13 +12,11 @@
         android:id="@+id/profileHeadline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="120dp"
+        android:layout_marginTop="48dp"
         android:gravity="center"
         android:text="Profile Page"
         android:textColor="@color/white"
-        android:textSize="40dp"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +28,7 @@
         android:layout_height="107dp"
         android:layout_gravity="center"
         android:layout_marginStart="148dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="120dp"
         android:src="@drawable/profile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -40,7 +38,7 @@
         android:layout_width="108dp"
         android:layout_height="34dp"
         android:layout_gravity="center"
-        android:layout_marginTop="260dp"
+        android:layout_marginTop="240dp"
         android:gravity="center"
         android:text="Username"
         android:textColor="@color/white"
@@ -80,7 +78,7 @@
         android:layout_width="125dp"
         android:layout_height="45dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="350dp"
+        android:layout_marginTop="336dp"
         android:layout_marginEnd="249dp"
         android:background="@drawable/clearview"
         android:text="Edit Profile"
@@ -88,7 +86,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

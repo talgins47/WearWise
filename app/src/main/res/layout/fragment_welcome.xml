@@ -14,7 +14,7 @@
         android:layout_marginTop="29dp"
         android:gravity="center"
         android:lineSpacingExtra="15dp"
-        android:text="Be raedy befor going out with Wear-Wise:
+        android:text="Be ready before going out with Wear-Wise:
         your helping app for dressing right,
         every time!"
         android:textColor="@color/white"

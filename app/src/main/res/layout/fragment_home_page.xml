@@ -83,7 +83,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/mainPost"
+            android:id="@+id/mainPostBtn"
             android:layout_width="70dp"
             android:layout_height="35dp"
             android:layout_alignParentEnd="true"

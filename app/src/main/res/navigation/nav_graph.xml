@@ -3,11 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/profilePageFragment">
-
+    app:startDestination="@id/mainActivity">
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.wearwise.MainActivity"
+        android:label="HomePage"
+        tools:layout="@layout/fragment_home_page" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.wearwise.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/postPageFragment"
+        android:name="com.example.wearwise.PostPageFragment"
+        android:label="fragment_post_page"
+        tools:layout="@layout/fragment_post_page" />
     <fragment
         android:id="@+id/profilePageFragment"
         android:name="com.example.wearwise.ProfilePageFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/likePhotosFragment"
+        android:name="com.example.wearwise.likePhotosFragment"
+        android:label="likePhotosFragment" />
 </navigation>

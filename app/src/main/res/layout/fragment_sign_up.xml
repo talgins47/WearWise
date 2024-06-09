@@ -65,6 +65,7 @@
                 android:textColorHint="@color/LightGrey">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/signUpName_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -88,6 +89,7 @@
                 app:boxStrokeColor="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/signUpUser_et"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:inputType="textPassword"
@@ -111,6 +113,7 @@
                 app:boxStrokeColor="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/signUpEmail_et"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:inputType="textPassword"
@@ -135,6 +138,7 @@
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/signUpPsswrd_et"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:inputType="textPassword"
@@ -159,6 +163,7 @@
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/signUpConpswrd_et"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:inputType="textPassword"
@@ -187,7 +192,7 @@
                 android:visibility="invisible" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSignUp"
+                android:id="@+id/btnlogIn"
                 android:layout_width="231dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -217,7 +222,7 @@
                 android:textColor="@color/white"
                 android:textSize="20dp" />
 
-            <TextView
+            <Button
                 android:id="@+id/signInBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

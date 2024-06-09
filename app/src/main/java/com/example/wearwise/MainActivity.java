@@ -31,8 +31,6 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.main_bottom_navigation);
         NavigationUI.setupWithNavController(navView,navController);
 
-
-
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -48,4 +46,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }

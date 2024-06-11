@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainActivity">
+    app:startDestination="@id/signUpFragment">
     <activity
         android:id="@+id/mainActivity"
         android:name="com.example.wearwise.MainActivity"
@@ -27,5 +27,18 @@
     <fragment
         android:id="@+id/likePhotosFragment"
         android:name="com.example.wearwise.likePhotosFragment"
-        android:label="likePhotosFragment" />
+        android:label="likePhotosFragment"
+        />
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.wearwise.signUpFragment"
+        android:label="signUpFragment" >
+        <action
+            android:id="@+id/action_signUpFragment_to_logInFragment"
+            app:destination="@id/logInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/logInFragment"
+        android:name="com.example.wearwise.logInFragment"
+        android:label="logInFragment" />
 </navigation>

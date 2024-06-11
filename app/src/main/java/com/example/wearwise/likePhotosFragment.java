@@ -11,12 +11,13 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 
-public class likePhotosFragment extends AppCompatActivity {
+public class likePhotosFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_like_photos, container, false);
 
-        ListView likeList = findViewById(R.id.like_photo_list);
+        ListView likeList = view.findViewById(R.id.like_photo_list);
 
         return inflater.inflate(R.layout.fragment_like_photos, container, false);
     }

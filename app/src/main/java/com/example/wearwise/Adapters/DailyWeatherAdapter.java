@@ -1,6 +1,5 @@
 package com.example.wearwise.Adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,62 +11,61 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wearwise.R;
 import com.example.wearwise.model.DailyWeather;
+import com.example.wearwise.model.Model;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapter.ViewHolder> {
+class DailyViewHolder extends RecyclerView.ViewHolder {
+    TextView day, status, morningWeather, noonWeather, nightWeather;
+    ImageView weatherPicPath, morningPicPath, noonPicPath, nightPicPath;
 
-    ArrayList<DailyWeather> items;
-    Context context;
+    public DailyViewHolder(@NonNull View itemView) {
+        super(itemView);
+        day= itemView.findViewById(R.id.dayText);
+        status= itemView.findViewById(R.id.weatherType);
+        morningWeather= itemView.findViewById(R.id.morningWeather);
+        noonWeather= itemView.findViewById(R.id.noonWeather);
+        nightWeather= itemView.findViewById(R.id.nightweather);
+        weatherPicPath = itemView.findViewById(R.id.weatherPic);
+        morningPicPath = itemView.findViewById(R.id.morningPic);
+        noonPicPath = itemView.findViewById(R.id.noonPic);
+        nightPicPath = itemView.findViewById(R.id.eveningPic);
 
-    public DailyWeatherAdapter(ArrayList<DailyWeather> items){
+    }
+
+    public void Bind(DailyWeather daily){
+        day.setText(daily.getDay());
+        status.setText(daily.getStatus());
+        morningWeather.setText(daily.getMorningWeather());
+        noonWeather.setText(daily.getNoonWeather());
+        nightWeather.setText(daily.getNightWeather());
+    }
+}
+public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyViewHolder> {
+
+   List<DailyWeather> items;
+
+    public DailyWeatherAdapter(){
         this.items = items;
     }
     @NonNull
     @Override
-    public DailyWeatherAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DailyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.futuer_weather_list_row, parent, false);
-        context = parent.getContext();
-
-        return new ViewHolder(inflate);
+        items = Model.instance().getDailyWeather();
+        return new DailyViewHolder(inflate);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DailyWeatherAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DailyViewHolder holder, int position) {
         DailyWeather daily = items.get(position);
-
-
+        holder.Bind(daily);
 
     }
     @Override
     public int getItemCount() {
-        return 0;
+        return items.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView day, status, morningWeather, noonWeather, nightWeather;
-        ImageView weatherPicPath, morningPicPath, noonPicPath, nightPicPath;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            day= itemView.findViewById(R.id.dayText);
-            status= itemView.findViewById(R.id.weatherType);
-            morningWeather= itemView.findViewById(R.id.morningWeather);
-            noonWeather= itemView.findViewById(R.id.noonWeather);
-            nightWeather= itemView.findViewById(R.id.nightweather);
-            weatherPicPath = itemView.findViewById(R.id.weatherPic);
-            morningPicPath = itemView.findViewById(R.id.morningPic);
-            noonPicPath = itemView.findViewById(R.id.noonPic);
-            nightPicPath = itemView.findViewById(R.id.eveningPic);
-
-        }
-
-        public void Bind(DailyWeather daily){
-         day.setText(daily.getDay());
-         status.setText(daily.getStatus());
-         morningWeather.setText(daily.getMorningWeather());
-         noonWeather.setText(daily.getNoonWeather());
-         nightWeather.setText(daily.getNightWeather());
-        }
-    }
 }

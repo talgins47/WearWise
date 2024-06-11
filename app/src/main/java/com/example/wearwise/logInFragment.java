@@ -12,20 +12,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class logInFragment extends AppCompatActivity {
+public class logInFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        EditText logInemailEt = findViewById(R.id.logInEmail_et);
-        EditText logInPsswrd = findViewById(R.id.loginPsswrd_et);
-        Button logInBtn = findViewById(R.id.btnlogIn);
-        Button signUpBtn = findViewById(R.id.signUpBtn_logIn);
-
         View view = inflater.inflate(R.layout.fragment_log_in, container, false);
 
+        EditText logIneMailEt = view.findViewById(R.id.logInEmail_et);
+        EditText logInPsswrd = view.findViewById(R.id.loginPsswrd_et);
+        Button logInBtn = view.findViewById(R.id.btnlogIn);
+        Button signUpBtn = view.findViewById(R.id.signUpBtn_logIn);
+
         signUpBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(this, signUpFragment.class);
+            Intent intent = new Intent(getActivity(), signUpFragment.class);
             startActivity(intent);
         });
 

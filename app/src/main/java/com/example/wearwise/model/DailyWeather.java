@@ -1,5 +1,8 @@
 package com.example.wearwise.model;
 
+import androidx.room.Entity;
+
+@Entity
 public class DailyWeather {
 
     private String day;

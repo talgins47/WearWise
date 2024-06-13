@@ -40,6 +40,7 @@ class DailyViewHolder extends RecyclerView.ViewHolder {
         morningWeather.setText(daily.getMorningWeather());
         noonWeather.setText(daily.getNoonWeather());
         nightWeather.setText(daily.getNightWeather());
+
     }
 }
 public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyViewHolder> {

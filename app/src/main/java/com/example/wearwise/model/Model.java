@@ -10,10 +10,14 @@ public class Model {
         return _instance;
     }
        private Model(){}
-    List<DailyWeather> data = new LinkedList<>();
+    List<DailyWeather> dailyData = new LinkedList<>();
+    List<Posts> postData = new LinkedList<>();
 
     public List<DailyWeather> getDailyWeather(){
-        return data;
+        return dailyData;
+    }
+    public List<Posts> getPosts(){
+        return postData;
     }
 
 }

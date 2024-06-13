@@ -21,15 +21,16 @@ import com.example.wearwise.Adapters.DailyWeatherAdapter;
 import com.example.wearwise.model.Model;
 
 public class home_pageFragment extends Fragment {
+    private RecyclerView Dailylist;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
-        RecyclerView list = view.findViewById(R.id.future_weather_list);
-        list.setHasFixedSize(true);
-        list.setLayoutManager(new LinearLayoutManager(getActivity()));
-        list.setAdapter(new DailyWeatherAdapter());
+        Dailylist = view.findViewById(R.id.future_weather_list);
+        Dailylist.setHasFixedSize(true);
+        Dailylist.setLayoutManager(new LinearLayoutManager(getActivity()));
+        Dailylist.setAdapter(new DailyWeatherAdapter());
 
         return view;
 

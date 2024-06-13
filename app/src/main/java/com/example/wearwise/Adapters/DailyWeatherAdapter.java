@@ -44,28 +44,25 @@ class DailyViewHolder extends RecyclerView.ViewHolder {
 }
 public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyViewHolder> {
 
-   List<DailyWeather> items;
+   List<DailyWeather> dailyItems;
 
-    public DailyWeatherAdapter(){
-        this.items = items;
-    }
     @NonNull
     @Override
     public DailyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.futuer_weather_list_row, parent, false);
-        items = Model.instance().getDailyWeather();
+        dailyItems = Model.instance().getDailyWeather();
         return new DailyViewHolder(inflate);
     }
 
     @Override
     public void onBindViewHolder(@NonNull DailyViewHolder holder, int position) {
-        DailyWeather daily = items.get(position);
+        DailyWeather daily = dailyItems.get(position);
         holder.Bind(daily);
 
     }
     @Override
     public int getItemCount() {
-        return items.size();
+        return dailyItems.size();
     }
 
 }

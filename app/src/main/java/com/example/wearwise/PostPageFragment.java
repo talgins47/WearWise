@@ -3,7 +3,6 @@ package com.example.wearwise;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -18,7 +17,7 @@ public class  PostPageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_post_page, container, false);
+        View view = inflater.inflate(R.layout.fragment_new_post_page, container, false);
         Button PostBtn = view.findViewById(R.id.PostpostBtn);
 
         PostBtn.setOnClickListener(v -> {

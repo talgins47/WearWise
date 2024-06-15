@@ -31,7 +31,8 @@ public class Model {
     public interface GetPostByCity{
         void onComplete(List<Post> data);
     }
-    public void getCityPost(GetPostByCity callback, String city) {
+
+    public void getPost(GetPostByCity callback, String city) {
         executor.execute(() -> {
             List<Post> data = localDb.postsDao().getPostByCity(city);
             mainHandler.post(()->{
@@ -40,18 +41,6 @@ public class Model {
             });
         });
     }
-    public interface GetPostListener{
-        void onComplete(List<Post> data);
-    }
-  /*  public void getPost(GetPostListener callback) {
-        executor.execute(() -> {
-            List<Post> data = localDb.postsDao().getPost();
-            mainHandler.post(()-> {
-                callback.onComplete(data);
-            }
-        }
-    }*/
-
     public interface AddPostListener{
         void onComplete();
     }

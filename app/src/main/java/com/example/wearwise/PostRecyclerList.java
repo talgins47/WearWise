@@ -27,12 +27,10 @@ public class PostRecyclerList extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_post_recycler_list, container, false);
-/*
-        Model.instance().getPost((pCityList, "city")->{
+        Model.instance().getPost((pCityList )->{
             postData = pCityList;
             adapter.setPostData(postData);
-                });
-        */
+                },"New York");
         postList = view.findViewById(R.id.postRecyclerView);
         postList.setHasFixedSize(true);
         postList.setLayoutManager(new GridLayoutManager(getContext(),3));

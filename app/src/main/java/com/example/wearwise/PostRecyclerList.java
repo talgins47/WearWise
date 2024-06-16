@@ -27,7 +27,7 @@ public class PostRecyclerList extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_post_recycler_list, container, false);
-        Model.instance().getPost((pCityList )->{
+        Model.instance().getPostByCity((pCityList )->{
             postData = pCityList;
             adapter.setPostData(postData);
                 },"New York");

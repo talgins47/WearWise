@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "779303077159",
+    "project_id": "wear-wise",
+    "storage_bucket": "wear-wise.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779303077159:android:c43ddd02f77ad536021502",
+        "android_client_info": {
+          "package_name": "com.example.wearwise"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJXo_FFBfkqrANHZHAyxNvKsZsPQZcm9I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

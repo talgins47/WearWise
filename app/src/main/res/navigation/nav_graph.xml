@@ -18,7 +18,7 @@
         android:id="@+id/postPageFragment"
         android:name="com.example.wearwise.PostPageFragment"
         android:label="fragment_post_page"
-        tools:layout="@layout/fragment_new_post_page" />
+        tools:layout="@layout/fragment_add_post" />
     <fragment
         android:id="@+id/profilePageFragment"
         android:name="com.example.wearwise.ProfilePageFragment"

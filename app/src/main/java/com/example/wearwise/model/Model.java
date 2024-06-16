@@ -15,7 +15,7 @@ public class Model {
 
     private  Executor executor = Executors.newSingleThreadExecutor();
     private  Handler mainHandler = HandlerCompat.createAsync(Looper.getMainLooper());
-
+    private FireBaseModel firebaseModel = new FireBaseModel();
     public static Model instance() {
         return _instance;
     }
@@ -32,26 +32,28 @@ public class Model {
         void onComplete(List<Post> data);
     }
 
-    public void getPost(GetPostByCity callback, String city) {
-        executor.execute(() -> {
+    public void getPostByCity(GetPostByCity callback, String city) {
+        firebaseModel.getPostByCity(callback, city);
+/*        executor.execute(() -> {
             List<Post> data = localDb.postsDao().getPostByCity(city);
             mainHandler.post(()->{
                 callback.onComplete(data);
 
             });
-        });
+        });*/
     }
     public interface AddPostListener{
         void onComplete();
     }
 
     public void addPost(Post post, AddPostListener postListener){
-        executor.execute(()->{
+        firebaseModel.addPost(post, postListener);
+  /*      executor.execute(()->{
             localDb.postsDao().insertAll(post);
             mainHandler.post(()->{
                 postListener.onComplete();
             });
-        });
+        });*/
     }
 
 }

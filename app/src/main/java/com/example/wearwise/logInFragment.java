@@ -23,6 +23,7 @@ public class logInFragment extends Fragment {
         Button logInBtn = view.findViewById(R.id.btnlogIn);
         Button signUpBtn = view.findViewById(R.id.signUpBtn_logIn);
 
+
         signUpBtn.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), signUpFragment.class);
             startActivity(intent);

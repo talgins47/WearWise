@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 
 public class signUpFragment extends Fragment {
-
+    NavDirections action;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -34,13 +34,21 @@ public class signUpFragment extends Fragment {
         Button signUpBtn = view.findViewById(R.id.btnlogIn);
         Button signInBtn = view.findViewById(R.id.signInBtn);
 
-        @NonNull NavDirections action = signUpFragmentDirections.actionSignUpFragmentToLogInFragment();
+        //action = signUpFragmentDirections.actionSignUpFragmentToLogInFragment();
 
         signInBtn.setOnClickListener(v-> {
 
             Navigation.createNavigateOnClickListener(action);
         });
 
+       //action = signUpFragmentDirections;
+
+
+
+        signUpBtn.setOnClickListener(v-> {
+
+            Navigation.createNavigateOnClickListener(action);
+        });
         return view;
     }
 }

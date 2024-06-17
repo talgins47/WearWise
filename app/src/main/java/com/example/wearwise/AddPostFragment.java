@@ -19,7 +19,7 @@ import com.example.wearwise.model.Model;
 import com.example.wearwise.model.Post;
 
 
-public class AddPosteFragment extends Fragment {
+public class AddPostFragment extends Fragment {
 
     String city;
     @Override

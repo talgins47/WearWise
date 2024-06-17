@@ -63,6 +63,7 @@ public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyViewHolder> {
     }
     @Override
     public int getItemCount() {
+        if(dailyItems==null) return 0;
         return dailyItems.size();
     }
 

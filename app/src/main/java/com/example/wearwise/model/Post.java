@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Entity
+
 public class Post {
     @PrimaryKey
     @NonNull
@@ -17,7 +18,7 @@ public class Post {
     private String degree;
 
     private String postPicPath;
-    public Post(String postPicPath, @NonNull String city, String describe, String degree) {
+    public Post(String postPicPath, String city, String describe, String degree) {
         this.postPicPath = postPicPath;
         this.city = city;
         this.describe = describe;

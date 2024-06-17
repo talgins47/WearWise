@@ -1,5 +1,6 @@
 package com.example.wearwise.model;
 
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -55,5 +56,11 @@ public class Model {
             });
         });*/
     }
+    public interface UploadImageListener{
+        void onComplete(String url);
+    }
+    public void uploadImage(String name, Bitmap bitmap, UploadImageListener listener) {
+        firebaseModel.uploadImage(name, bitmap, listener);
+    }
 
-}
+    }

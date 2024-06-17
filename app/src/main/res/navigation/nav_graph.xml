@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/entryFragment">
+    app:startDestination="@id/home_pageFragment">
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.wearwise.SearchFragment"
@@ -25,46 +25,9 @@
         android:label="likePhotosFragment"
         tools:layout="@layout/fragment_like_photos"/>
     <fragment
-        android:id="@+id/signUpFragment"
-        android:name="com.example.wearwise.signUpFragment"
-        android:label="signUpFragment"
-        tools:layout="@layout/fragment_sign_up" >
-
-        <action
-            android:id="@+id/action_signUpFragment_to_logInFragment"
-            app:destination="@id/logInFragment" />
-        <action
-            android:id="@+id/action_signUpFragment_to_home_pageFragment"
-            app:destination="@id/home_pageFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/logInFragment"
-        android:name="com.example.wearwise.logInFragment"
-        android:label="logInFragment"
-        tools:layout="@layout/fragment_log_in" >
-        <action
-            android:id="@+id/action_logInFragment_to_signUpFragment"
-            app:destination="@id/signUpFragment" />
-        <action
-            android:id="@+id/action_logInFragment_to_home_pageFragment"
-            app:destination="@id/home_pageFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/entryFragment"
-        android:name="com.example.wearwise.entryFragment"
-        android:label="fragment_entry"
-        tools:layout="@layout/fragment_entry" >
-        <action
-            android:id="@+id/action_entryFragment_to_signUpFragment"
-            app:destination="@id/signUpFragment" />
-        <action
-            android:id="@+id/action_entryFragment_to_logInFragment"
-            app:destination="@id/logInFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/home_pageFragment"
         android:name="com.example.wearwise.home_pageFragment"
         android:label="home_pageFragment"
-        tools:layout="@layout/fragment_home_page" >
-    />
+        tools:layout="@layout/fragment_home_page" />
+
 </navigation>

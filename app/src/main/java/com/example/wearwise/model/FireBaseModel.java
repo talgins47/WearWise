@@ -1,6 +1,7 @@
 package com.example.wearwise.model;
 
-import android.util.Log;
+import android.graphics.Bitmap;
+import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
@@ -8,12 +9,17 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.MemoryCacheSettings;
+import com.google.firebase.firestore.MemoryLruGcSettings;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,11 +27,21 @@ import java.util.Map;
 
 public class FireBaseModel {
     FirebaseFirestore db;
+    FirebaseStorage storage;
 
-    FireBaseModel(){
+    FireBaseModel() {
         db = FirebaseFirestore.getInstance();
+        storage = FirebaseStorage.getInstance();
+        MemoryCacheSettings memoryCacheSettings = MemoryCacheSettings.newBuilder()
+                .setGcSettings(MemoryLruGcSettings.newBuilder()
+                        .setSizeBytes(0)
+                        .build())
+                .build();
+
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
-                .setPersistenceEnabled(false).build();
+                .setLocalCacheSettings(memoryCacheSettings)
+                .build();
+        db.setFirestoreSettings(settings);
     }
 
     public void getPostByCity(Model.GetPostByCity callback, String city) {
@@ -59,6 +75,35 @@ public class FireBaseModel {
             }
         });
 
+    }
+
+    void uploadImage(String name, Bitmap bitmap, Model.UploadImageListener listener){
+        StorageReference storageRef = storage.getReference();
+        StorageReference imageRef = storageRef.child("image/" + name + ".jpg");
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = imageRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                listener.onComplete(null);
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        listener.onComplete(uri.toString());
+
+                    }
+                });
+
+            }
+        });
     }
 
 }

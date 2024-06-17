@@ -7,19 +7,6 @@
     tools:context=".SearchFragment"
     android:background="@drawable/background">
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/city_textview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:context=".HomePageFragment">
-
         <TextView
             android:id="@+id/whatsNow"
             android:layout_width="344dp"
@@ -53,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:layout_marginEnd="18dp"
-            android:layout_marginBottom="114dp"
+            android:layout_marginBottom="50dp"
             android:text="Agree?"
             android:textColor="@color/LightGrey"
             android:textSize="18dp"
@@ -66,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="176dp"
             android:layout_marginTop="1dp"
-            android:layout_marginBottom="175dp"
+            android:layout_marginBottom="60dp"
             android:text="sunny"
             android:textColor="@color/white"
             android:textSize="25dp"
@@ -112,7 +99,6 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="24dp"
-            android:layout_marginBottom="14dp"
             android:background="?attr/background"
             android:src="@drawable/dislik"
             app:layout_constraintBottom_toTopOf="@+id/dis"
@@ -134,7 +120,6 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginEnd="25dp"
-            android:layout_marginBottom="14dp"
             android:background="?attr/background"
             android:src="@drawable/lik"
             app:layout_constraintBottom_toTopOf="@+id/textView1"
@@ -160,7 +145,7 @@
             android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:layout_marginStart="79dp"
-            android:layout_marginBottom="114dp"
+            android:layout_marginBottom="50dp"
             android:text="Disagree?"
             android:textColor="@color/LightGrey"
             android:textSize="18dp"
@@ -209,15 +194,14 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/Posts"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_width="410dp"
+            android:layout_height="322dp"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

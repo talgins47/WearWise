@@ -44,7 +44,7 @@ public class FireBaseModel {
         db.setFirestoreSettings(settings);
     }
 
-    public void getPostByCity(Model.GetPostByCity callback, String city) {
+    public void getPostByCity(Model.Listener<List<Post>> callback, String city) {
         db.collection("posts").whereEqualTo("city",city).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -61,9 +61,9 @@ public class FireBaseModel {
         });
 
     }
-    public void addPost(Post post, Model.AddPostListener postListener) {
+    public void addPost(Post post, Model.Listener<Void> postListener) {
         Map<String, Object> json = new HashMap<>();
-        json.put("postPic", post.getPostPicPath());
+        json.put("postPicPath", post.getPostPicPath());
         json.put("city", post.getCity());
         json.put("describe", post.getDescribe());
         json.put("degree", post.getDegree());
@@ -71,13 +71,13 @@ public class FireBaseModel {
         db.collection("Posts").document().set(post.toJson()).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                postListener.onComplete();
+                postListener.onComplete(null);
             }
         });
 
     }
 
-    void uploadImage(String name, Bitmap bitmap, Model.UploadImageListener listener){
+    void uploadImage(String name, Bitmap bitmap, Model.Listener<String> listener){
         StorageReference storageRef = storage.getReference();
         StorageReference imageRef = storageRef.child("image/" + name + ".jpg");
 

@@ -29,5 +29,5 @@
         android:name="com.example.wearwise.home_pageFragment"
         android:label="home_pageFragment"
         tools:layout="@layout/fragment_home_page" />
-
+    />
 </navigation>

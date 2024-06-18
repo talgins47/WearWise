@@ -29,11 +29,11 @@ public class Model {
 
     }
 
-    public interface GetPostByCity{
-        void onComplete(List<Post> data);
+    public interface Listener<T>{
+        void onComplete(T data);
     }
 
-    public void getPostByCity(GetPostByCity callback, String city) {
+    public void getPostByCity(Listener<List<Post>> callback, String city) {
         firebaseModel.getPostByCity(callback, city);
 /*        executor.execute(() -> {
             List<Post> data = localDb.postsDao().getPostByCity(city);
@@ -42,12 +42,10 @@ public class Model {
 
             });
         });*/
-    }
-    public interface AddPostListener{
-        void onComplete();
+
     }
 
-    public void addPost(Post post, AddPostListener postListener){
+    public void addPost(Post post, Listener<Void> postListener){
         firebaseModel.addPost(post, postListener);
   /*      executor.execute(()->{
             localDb.postsDao().insertAll(post);
@@ -56,10 +54,7 @@ public class Model {
             });
         });*/
     }
-    public interface UploadImageListener{
-        void onComplete(String url);
-    }
-    public void uploadImage(String name, Bitmap bitmap, UploadImageListener listener) {
+    public void uploadImage(String name, Bitmap bitmap, Listener<String> listener) {
         firebaseModel.uploadImage(name, bitmap, listener);
     }
 

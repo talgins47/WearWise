@@ -56,14 +56,14 @@ public class AddPostFragment extends Fragment {
                     if(url!=null){
                         pt.setPostPicPath(url);
                     }
-                    Model.instance().addPost(pt,()->{
+                    Model.instance().addPost(pt,(unused)->{
                         Navigation.findNavController(view1).popBackStack();
                     });
 
                 });
 
             }else {
-                Model.instance().addPost(pt, () -> {
+                Model.instance().addPost(pt, (unused) -> {
                     Navigation.findNavController(view1).popBackStack();
                 });
             }

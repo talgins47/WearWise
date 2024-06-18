@@ -25,11 +25,11 @@ public class Post {
         this.degree = degree;
     }
     public static Post fromJson(Map<String, Object> json){
-        String postPic = (String) json.get("postPic");
+        String postPicPath = (String) json.get("postPicPath");
         String city = (String) json.get("city");
         String describe = (String) json.get("describe");
         String degree = (String) json.get("degree");
-        Post pt = new Post(postPic, city, describe, degree);
+        Post pt = new Post(postPicPath, city, describe, degree);
         return pt;
     }
     public Map<String, Object> toJson(){

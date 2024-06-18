@@ -39,7 +39,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         Post post = postData.get(position);
-        holder.Bind(post);
+        holder.Bind(post, position);
 
     }
 

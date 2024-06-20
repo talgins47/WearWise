@@ -1,9 +1,16 @@
 package com.example.wearwise.model;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.Query;
+
+import com.example.wearwise.MyApplication;
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.FieldValue;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,33 +18,63 @@ import java.util.Map;
 @Entity
 
 public class Post {
+
     @PrimaryKey
     @NonNull
-    private String city;
-    private String describe;
-    private String degree;
+    public String city;
+    public String describe;
+    public String degree;
+    public String postPicPath;
+    public Long LastUpdate;
 
-    private String postPicPath;
+    public Post(){}
     public Post(String postPicPath, String city, String describe, String degree) {
         this.postPicPath = postPicPath;
         this.city = city;
         this.describe = describe;
         this.degree = degree;
     }
+    static final String DESCRIBE = "describe";
+    static final String DEGREE = "degree";
+    static final String CITY = "city";
+    static final String POST_PIC_PATH = "postPicPath";
+    static final String COLLECTION = "post";
+    static final String LAST_UPDATE = "lastUpdate";
+    static final String LOCAL_LAST_UPDATE = "POSTLocalLastUpdate";
+
     public static Post fromJson(Map<String, Object> json){
         String postPicPath = (String) json.get("postPicPath");
         String city = (String) json.get("city");
         String describe = (String) json.get("describe");
         String degree = (String) json.get("degree");
         Post pt = new Post(postPicPath, city, describe, degree);
+        try {
+            Timestamp time = (Timestamp) json.get(LAST_UPDATE);
+            pt.setLastUpdate(time.getSeconds());
+        }catch (Exception e) {
+        }
         return pt;
     }
+
+    public static Long getLocalLastUpdate() {
+        SharedPreferences sharePref = MyApplication.getMyContext().getSharedPreferences("TAG", Context.MODE_PRIVATE);
+        return sharePref.getLong(LOCAL_LAST_UPDATE,0);
+    }
+
+    public static void setLocalLastUpdate(Long time) {
+        SharedPreferences sharePref = MyApplication.getMyContext().getSharedPreferences("TAG", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharePref.edit();
+        editor.putLong(LOCAL_LAST_UPDATE, time);
+        editor.apply();
+    }
+
     public Map<String, Object> toJson(){
         Map<String, Object> json = new HashMap<>();
-        json.put("postPic", getPostPicPath());
-        json.put("city", getCity());
-        json.put("describe", getDescribe());
-        json.put("degree", getDegree());
+        json.put(POST_PIC_PATH, getPostPicPath());
+        json.put(CITY, getCity());
+        json.put(DESCRIBE, getDescribe());
+        json.put(DEGREE, getDegree());
+        json.put(LAST_UPDATE, FieldValue.serverTimestamp());
         return json;
 
     }
@@ -74,5 +111,13 @@ public class Post {
 
     public void setDegree(String degree) {
         this.degree = degree;
+    }
+
+    public Long getLastUpdate(){
+        return LastUpdate;
+    }
+
+    public void setLastUpdate(Long lastUpdate) {
+        LastUpdate = lastUpdate;
     }
 }

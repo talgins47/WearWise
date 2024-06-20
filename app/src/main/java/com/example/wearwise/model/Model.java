@@ -17,10 +17,10 @@ public class Model {
     private  Executor executor = Executors.newSingleThreadExecutor();
     private  Handler mainHandler = HandlerCompat.createAsync(Looper.getMainLooper());
     private FireBaseModel firebaseModel = new FireBaseModel();
+    AppLocalDbRepository localdb = AppLocalDb.getAppDb();
     public static Model instance() {
         return _instance;
     }
-    AppLocalDbRepository localDb= AppLocalDb.getAppDb();
        private Model(){}
     List<DailyWeather> dailyData = new LinkedList<>();
 
@@ -33,15 +33,38 @@ public class Model {
         void onComplete(T data);
     }
 
-    public void getPostByCity(Listener<List<Post>> callback, String city) {
-        firebaseModel.getPostByCity(callback, city);
-/*        executor.execute(() -> {
-            List<Post> data = localDb.postsDao().getPostByCity(city);
-            mainHandler.post(()->{
-                callback.onComplete(data);
+    public void getRefreshPosts(){
+        //get local last update
+        Long localLastUpdate = Post.getLocalLastUpdate();
+        //get all updated recorde from firebase since local lsat update
+        firebaseModel.getAllPostSince(localLastUpdate,(list) ->{
+           executor.execute(()->{
+               Long time = localLastUpdate;
+               for(Post pt: list) {
+                   // insert new records into ROOM
+                   localdb.postsDao().insertAll(pt);
+                   if(time < pt.getLastUpdate()){
+                       time = pt.getLastUpdate();
+                   }
+               }
+               //update local last update
+               Post.setLocalLastUpdate(time);
 
+           });
+    });
+    }
+
+
+    public void getPostByCity(Listener<List<Post>> callback, String city) {
+        getRefreshPosts();
+        //return complete list from ROOM
+        executor.execute(()->{
+            List<Post> complete = localdb.postsDao().getPostByCity(city);
+            mainHandler.post(()->{
+                callback.onComplete(complete);
             });
-        });*/
+
+        });
 
     }
 

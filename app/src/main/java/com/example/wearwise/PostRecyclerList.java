@@ -36,13 +36,14 @@ public class PostRecyclerList extends Fragment {
         //View view = inflater.inflate(R.layout.fragment_post_recycler_list, container, false);
         binding.postRecyclerView.setHasFixedSize(true);
         binding.postRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new PostAdapter(getLayoutInflater(), viewModel.getPostData());
+        adapter = new PostAdapter(viewModel.getPostData(), getLayoutInflater());
         binding.postRecyclerView.setAdapter(adapter);
 
 
+
         Model.instance().getPostByCity((pCityList )->{
-            postData = pCityList;
-            adapter.setPostData(postData);
+            viewModel.setPostData(pCityList);
+            adapter.setPostData(viewModel.getPostData());
                 },"New York");
         postList = view.findViewById(R.id.postRecyclerView);
         postList.setHasFixedSize(true);
@@ -53,8 +54,10 @@ public class PostRecyclerList extends Fragment {
 
     }
 
+
     public void onAttach(@NonNull Context context){
          super.onAttach(context);
          viewModel = new ViewModelProvider(this).get(PostsListFragmentViewModel.class);
     }
+
 }

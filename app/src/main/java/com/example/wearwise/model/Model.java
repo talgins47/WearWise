@@ -92,5 +92,8 @@ public class Model {
         firebaseModel.uploadImage(name, bitmap, listener);
     }
 
+    public void logIn(String username, String password, Listener<Boolean> listener){
+        firebaseModel.logIn(username, password, listener);
+    }
 
 }

@@ -10,6 +10,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
@@ -27,8 +29,9 @@ import java.util.List;
 import java.util.Map;
 
 public class FireBaseModel {
-    FirebaseFirestore db;
-    FirebaseStorage storage;
+    private FirebaseFirestore db;
+    private FirebaseStorage storage;
+    private FirebaseAuth mAuth;
 
     FireBaseModel() {
         db = FirebaseFirestore.getInstance();
@@ -105,6 +108,17 @@ public class FireBaseModel {
                     }
                 });
 
+            }
+        });
+    }
+    public void logIn(String username, String password, Model.Listener<Boolean> listener) {
+        db.collection("User").document(username).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult() != null) {
+                User user = User.fromJson(task.getResult().getData());
+                mAuth.signInWithEmailAndPassword(user.email, password)
+                        .addOnCompleteListener(task1 -> listener.onComplete(task1.isSuccessful()));
+            } else {
+                listener.onComplete(task.isSuccessful());
             }
         });
     }

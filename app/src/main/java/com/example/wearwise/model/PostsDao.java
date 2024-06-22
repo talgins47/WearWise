@@ -1,5 +1,6 @@
 package com.example.wearwise.model;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -14,7 +15,7 @@ public interface PostsDao {
     List<Post> getPostByCity(String city);
 
     @Query("select * from Post" )
-    List<Post> getPost();
+   LiveData<List<Post>> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Post...posts);

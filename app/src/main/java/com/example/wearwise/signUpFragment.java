@@ -15,26 +15,48 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+
+import com.example.wearwise.databinding.FragmentSignUpBinding;
 
 
 public class signUpFragment extends Fragment {
     NavDirections action;
+    FragmentSignUpBinding binding;
+
+    String fullName;
+    String userName;
+    String email;
+    String password;
+    String location= "";
+
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
-
-
-        EditText nameEt = view.findViewById(R.id.signUpName_et);
+        binding=FragmentSignUpBinding.inflate(inflater,container,false);
+        View view = binding.getRoot();
+        /*EditText nameEt = view.findViewById(R.id.signUpName_et);
         EditText userEt = view.findViewById(R.id.signUpUser_et);
         EditText emailEt = view.findViewById(R.id.signUpEmail_et);
         EditText psswrdEt = view.findViewById(R.id.signUpPsswrd_et);
-        EditText confrmpssEt = view.findViewById(R.id.signUpConpswrd_et);
-        Button signUpBtn = view.findViewById(R.id.btnlogIn);
-        Button signInBtn = view.findViewById(R.id.signInBtn);
+        Button signInBtn = view.findViewById(R.id.signInBtn);*/
 
         //action = signUpFragmentDirections.actionSignUpFragmentToLogInFragment();
+
+
+
+        binding.SignUpbtn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                fullName = binding.signUpNameEt.getText().toString();
+                userName = binding.signUpUserEt.getText().toString();
+                email= binding.signUpEmailEt.getText().toString();
+                password = binding.SignUpPassWord.toString();
+
+            }
+        });
 
         signInBtn.setOnClickListener(v-> {
 
@@ -51,4 +73,6 @@ public class signUpFragment extends Fragment {
         });
         return view;
     }
+
+
 }

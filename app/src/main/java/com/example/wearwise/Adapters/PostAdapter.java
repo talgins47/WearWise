@@ -45,6 +45,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder>{
 
     @Override
     public int getItemCount() {
+        if(postData == null) return 0;
         return postData.size();
     }
 }

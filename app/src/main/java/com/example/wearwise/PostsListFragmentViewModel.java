@@ -1,21 +1,20 @@
 package com.example.wearwise;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.wearwise.model.Model;
 import com.example.wearwise.model.Post;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class PostsListFragmentViewModel extends ViewModel {
-    private List<Post> postData = new LinkedList<>();
+    private LiveData<List<Post>> postData = Model.instance().getAllPosts();
 
-    List<Post> getPostData(){
+    LiveData<List<Post>> getPostData(){
         return postData;
     }
 
-    void setPostData(List<Post> list){
-        postData = list;
-    }
 
 }

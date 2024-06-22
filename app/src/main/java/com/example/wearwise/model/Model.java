@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 import androidx.core.os.HandlerCompat;
+import androidx.lifecycle.LiveData;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -14,53 +15,64 @@ import java.util.concurrent.Executors;
 public class Model {
     private static final Model _instance = new Model();
 
-    private  Executor executor = Executors.newSingleThreadExecutor();
-    private  Handler mainHandler = HandlerCompat.createAsync(Looper.getMainLooper());
+    private Executor executor = Executors.newSingleThreadExecutor();
+    private Handler mainHandler = HandlerCompat.createAsync(Looper.getMainLooper());
     private FireBaseModel firebaseModel = new FireBaseModel();
     AppLocalDbRepository localdb = AppLocalDb.getAppDb();
+
     public static Model instance() {
         return _instance;
     }
-       private Model(){}
+
+    private Model() {
+    }
+
     List<DailyWeather> dailyData = new LinkedList<>();
 
-    public List<DailyWeather> getDailyWeather(){
+    public List<DailyWeather> getDailyWeather() {
         return dailyData;
 
     }
 
-    public interface Listener<T>{
+    public interface Listener<T> {
         void onComplete(T data);
     }
 
-    public void getRefreshPosts(){
+    private LiveData<List<Post>> postList;
+    public LiveData<List<Post>> getAllPosts() {
+        if (postList == null) {
+            postList = localdb.postsDao().getAll();
+        }
+        return postList;
+    }
+
+    public void getRefreshPosts() {
         //get local last update
         Long localLastUpdate = Post.getLocalLastUpdate();
         //get all updated recorde from firebase since local lsat update
-        firebaseModel.getAllPostSince(localLastUpdate,(list) ->{
-           executor.execute(()->{
-               Long time = localLastUpdate;
-               for(Post pt: list) {
-                   // insert new records into ROOM
-                   localdb.postsDao().insertAll(pt);
-                   if(time < pt.getLastUpdate()){
-                       time = pt.getLastUpdate();
-                   }
-               }
-               //update local last update
-               Post.setLocalLastUpdate(time);
-
-           });
-    });
+        firebaseModel.getAllPostSince(localLastUpdate, (list) -> {
+            executor.execute(() -> {
+                Long time = localLastUpdate;
+                for (Post pt : list) {
+                    // insert new records into ROOM
+                    localdb.postsDao().insertAll(pt);
+                    if (time < pt.getLastUpdate()) {
+                        time = pt.getLastUpdate();
+                    }
+                }
+                //update local last update
+                Post.setLocalLastUpdate(time);
+            });
+        });
     }
 
 
     public void getPostByCity(Listener<List<Post>> callback, String city) {
         getRefreshPosts();
         //return complete list from ROOM
-        executor.execute(()->{
+        executor.execute(() -> {
             List<Post> complete = localdb.postsDao().getPostByCity(city);
-            mainHandler.post(()->{
+            mainHandler.post(() -> {
                 callback.onComplete(complete);
             });
 
@@ -68,17 +80,17 @@ public class Model {
 
     }
 
-    public void addPost(Post post, Listener<Void> postListener){
-        firebaseModel.addPost(post, postListener);
-  /*      executor.execute(()->{
-            localDb.postsDao().insertAll(post);
-            mainHandler.post(()->{
-                postListener.onComplete();
-            });
-        });*/
+    public void addPost(Post post, Listener<Void> postListener) {
+        firebaseModel.addPost(post,(Void)->{
+            getRefreshPosts();
+            postListener.onComplete(null);
+
+        });
     }
+
     public void uploadImage(String name, Bitmap bitmap, Listener<String> listener) {
         firebaseModel.uploadImage(name, bitmap, listener);
     }
 
-    }
+
+}

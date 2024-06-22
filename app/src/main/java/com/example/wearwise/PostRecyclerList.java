@@ -36,28 +36,42 @@ public class PostRecyclerList extends Fragment {
         //View view = inflater.inflate(R.layout.fragment_post_recycler_list, container, false);
         binding.postRecyclerView.setHasFixedSize(true);
         binding.postRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new PostAdapter(viewModel.getPostData(), getLayoutInflater());
+        adapter = new PostAdapter(viewModel.getPostData().getValue(),getLayoutInflater());
         binding.postRecyclerView.setAdapter(adapter);
 
 
 
-        Model.instance().getPostByCity((pCityList )->{
+    /*    Model.instance().getPostByCity((pCityList )->{
             viewModel.setPostData(pCityList);
             adapter.setPostData(viewModel.getPostData());
                 },"New York");
         postList = view.findViewById(R.id.postRecyclerView);
         postList.setHasFixedSize(true);
         postList.setLayoutManager(new GridLayoutManager(getContext(),3));
-        postList.setAdapter(new DailyWeatherAdapter());
+        postList.setAdapter(new DailyWeatherAdapter());*/
+
+        viewModel.getPostData().observe(getViewLifecycleOwner(),list->{
+            adapter.setPostData(list);
+            //binding.progressBar.setVisibility(View.GONE);
+        });
+        //Add post button
+
+        binding.swipeRefresh.setOnRefreshListener(()->{
+            reloadData();
+        });
 
         return view;
 
     }
 
-
     public void onAttach(@NonNull Context context){
          super.onAttach(context);
          viewModel = new ViewModelProvider(this).get(PostsListFragmentViewModel.class);
+    }
+
+    void reloadData() {
+        //binding.progressBar.setvisibilty(View.VISIBLE);
+        Model.instance().getRefreshPosts();
     }
 
 }

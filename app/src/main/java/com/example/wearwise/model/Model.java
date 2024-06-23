@@ -14,6 +14,7 @@ import androidx.lifecycle.LiveData;
 import com.example.wearwise.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -128,5 +129,13 @@ public class Model {
     }
     public void createUser(User user, Model.Listener<Boolean> listener){
         firebaseModel.createUser(user, listener);
+    }
+    public void logOut(){
+        firebaseModel.signOut();
+
+    }
+
+    public boolean isUserLog(){
+        return firebaseModel.isUserLog();
     }
 }

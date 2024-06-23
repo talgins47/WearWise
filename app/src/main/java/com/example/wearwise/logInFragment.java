@@ -26,15 +26,7 @@ public class logInFragment extends Fragment {
     ProgressBar processBar;
     FirebaseAuth mAuth;
 
-    public void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            Intent intent = new Intent(getContext(), MainActivity.class);
-            startActivity(intent);
-            getActivity().finish();
-        }
-    }
+
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

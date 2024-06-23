@@ -22,12 +22,12 @@ public class entryFragment extends Fragment {
         Button signUpButton = view.findViewById(R.id.welcomeSignUpButton);
 
         logInButton.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.action_entryFragment2_to_logInFragment)
+            Navigation.createNavigateOnClickListener(R.id.action_entryFragment_to_logInFragment)
 
         );
 
         signUpButton.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.action_entryFragment2_to_signUpFragment));
+            Navigation.createNavigateOnClickListener(R.id.action_entryFragment_to_signUpFragment));
 
         return view;
     }

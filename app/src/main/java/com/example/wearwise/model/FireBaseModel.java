@@ -51,6 +51,7 @@ public class FireBaseModel {
                 .setLocalCacheSettings(memoryCacheSettings)
                 .build();
         db.setFirestoreSettings(settings);
+        mAuth=FirebaseAuth.getInstance();
     }
 
     public void getAllPostSince(Long since, Model.Listener<List<Post>> callback) {

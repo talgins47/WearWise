@@ -1,3 +1,4 @@
+
 package com.example.wearwise;
 
 import android.app.DatePickerDialog;
@@ -37,22 +38,24 @@ public class home_pageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
-
-        binding = FragmentHomePageBinding.inflate(inflater, container, false);
-        Dailylist.setHasFixedSize(true);
-        Dailylist.setLayoutManager(new LinearLayoutManager(getContext()));
-        Dailylist.setAdapter(new DailyWeatherAdapter());
-        binding.mainPostBtn.setOnClickListener((v)->{
-      /*      Dialog dialog = new DatePickerDialog(getContext(), (WeatherPicker, "hot as fuck")->{
-
-            },)*/
-
-        });
-
-        return binding.getRoot();
+//
+      binding = FragmentHomePageBinding.inflate(inflater, container, false);
+//        Dailylist.setHasFixedSize(true);
+//        Dailylist.setLayoutManager(new LinearLayoutManager(getContext()));
+//        Dailylist.setAdapter(new DailyWeatherAdapter());
+//        binding.mainPostBtn.setOnClickListener((v)->{
+//
+//    Dialog dialog = new DatePickerDialog(getContext(), (WeatherPicker, "hot as fuck")->{
+//
+//            },);
+//
+//
+//        });
+//
+       return binding.getRoot();
 
     }
 
 
 }
+

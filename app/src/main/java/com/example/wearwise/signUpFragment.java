@@ -51,15 +51,6 @@ public class signUpFragment extends Fragment {
     String password;
     String city= "";
 
-    public void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            Intent intent = new Intent(getContext(), MainActivity.class);
-            startActivity(intent);
-            getActivity().finish();
-        }
-    }
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding=FragmentSignUpBinding.inflate(inflater,container,false);
@@ -110,15 +101,8 @@ public class signUpFragment extends Fragment {
                 });
             }
         });
+        binding.LogInBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_signUpFragment_to_logInFragment));
 
-        binding.LogInBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               NavController navController = Navigation.findNavController(requireActivity(), R.id.main_navhost);
-                navController.navigate(R.id.action_signUpFragment_to_logInFragment);
-
-            }
-        });
 
         return view;
     }

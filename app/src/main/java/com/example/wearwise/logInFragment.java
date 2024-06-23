@@ -50,14 +50,8 @@ public class logInFragment extends Fragment {
 
             });
         });
-            binding.signUpBtnLogIn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    NavController navController = Navigation.findNavController(requireActivity(), R.id.main_navhost);
-                    navController.navigate(R.id.action_logInFragment_to_signUpFragment);
+            binding.signUpBtnLogIn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_logInFragment_to_signUpFragment));
 
-                }
-            });
       return binding.getRoot();
     }
 

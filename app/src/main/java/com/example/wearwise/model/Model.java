@@ -1,12 +1,21 @@
 package com.example.wearwise.model;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.View;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.core.os.HandlerCompat;
 import androidx.lifecycle.LiveData;
 
+import com.example.wearwise.MainActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.auth.AuthResult;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -32,6 +41,24 @@ public class Model {
     public List<DailyWeather> getDailyWeather() {
         return dailyData;
 
+    }
+
+    public List<String> getCities() {
+        List<String> cities = new ArrayList<>();
+        cities.add(0,"city");
+        cities.add(1,"Tel Aviv");
+        cities.add(2,"Kfar Sava");
+        cities.add(3,"Netanya");
+        cities.add(4,"lod");
+        return cities;
+    }
+
+    public void isUserNameExist(String userName, Listener<Boolean> listener) {
+        firebaseModel.isUserNameExist(userName, listener);
+    }
+
+    public void isEmailExist(String email, Listener<Boolean> listener) {
+        firebaseModel.isEmailExist(email, listener);
     }
 
     public interface Listener<T> {
@@ -88,6 +115,10 @@ public class Model {
         });
     }
 
+    public void addUser(User user) {
+        firebaseModel.addUser(user);
+    }
+
     public void uploadImage(String name, Bitmap bitmap, Listener<String> listener) {
         firebaseModel.uploadImage(name, bitmap, listener);
     }
@@ -95,5 +126,7 @@ public class Model {
     public void logIn(String username, String password, Listener<Boolean> listener){
         firebaseModel.logIn(username, password, listener);
     }
-
+    public void createUser(User user, Model.Listener<Boolean> listener){
+        firebaseModel.createUser(user, listener);
+    }
 }

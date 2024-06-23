@@ -16,15 +16,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.wearwise.Adapters.SpinnerAdapter;
 import com.example.wearwise.databinding.FragmentSignUpBinding;
 import com.example.wearwise.model.FireBaseModel;
+import com.example.wearwise.model.Model;
+import com.example.wearwise.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -61,8 +64,19 @@ public class signUpFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding=FragmentSignUpBinding.inflate(inflater,container,false);
         View view = binding.getRoot();
-        mAuth = FirebaseAuth.getInstance();
         processBar = binding.signUpProgressBar;
+        binding.citySignUpSpinner.setAdapter(SpinnerAdapter.setCitySpinner(getContext()));
+        binding.citySignUpSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                city=parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         binding.SignUpbtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -72,43 +86,28 @@ public class signUpFragment extends Fragment {
                 password = binding.SignUpPassWord.toString();
                 processBar.setVisibility(View.VISIBLE);
 
-                if(TextUtils.isEmpty(fullName)){
-                    Toast.makeText(getContext(), "Enter fullName", Toast.LENGTH_SHORT).show();
-                return;
-                }
-
-                if(TextUtils.isEmpty(userName)){
-                    Toast.makeText(getContext(), "Enter userName", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if(TextUtils.isEmpty(email)){
-                    Toast.makeText(getContext(), "Enter email", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(TextUtils.isEmpty(password)){
-                    Toast.makeText(getContext(), "Enter password", Toast.LENGTH_SHORT).show();
-                }
-
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                processBar.setVisibility(View.GONE);
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(getContext(), "Account created.",
-                                            Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(getActivity(), MainActivity.class);
-                                        startActivity(intent);
-                                        getActivity().finish();
-                                } else {
-                                    Toast.makeText(getContext(), "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
+                if(validateInput()) {
+                    Model.instance().isUserNameExist(userName,(userNameIsExist)->{
+                        if (userNameIsExist) {
+                            makeAToast("Username is Already Exist");
+                        } else {
+                            Model.instance().isEmailExist(email, (emailIsExist) -> {
+                                if (emailIsExist) {
+                                    makeAToast("Email Is Already Exist");
                                 }
-                            }
-                        });
+                            });
+                        }
 
-
+                    });
+                }
+                User user = new User(email, fullName, userName, password, city);
+                Model.instance().createUser(user,(isSuccess)->{
+                    if(isSuccess){
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        startActivity(intent);
+                        getActivity().finish();
+                    }
+                });
             }
         });
 
@@ -119,31 +118,11 @@ public class signUpFragment extends Fragment {
                 navController.navigate(R.id.action_signUpFragment_to_logInFragment);
 
             }
-
         });
 
-
-
- /*       signInBtn.setOnClickListener(v-> {
-
-            Navigation.createNavigateOnClickListener(action);
-        });*/
-
-       //action = signUpFragmentDirections;
-
-
-
-      /*  signUpBtn.setOnClickListener(v-> {
-
-            Navigation.createNavigateOnClickListener(action);
-        });*/
         return view;
     }
- /*   public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
-*/
+
     public boolean isEmailvalid(String email){
         String regex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}$";
         Pattern pattern = Pattern.compile(regex);
@@ -160,6 +139,7 @@ public class signUpFragment extends Fragment {
                 })
                 .create().show();
     }
+
 
     public boolean validateInput(){
 
@@ -178,8 +158,6 @@ public class signUpFragment extends Fragment {
             makeAToast("Password must contains at least 8 characters");
             return false;
         }
-
-
         return true;
     }
 

@@ -25,7 +25,6 @@ public class ProfilePageFragment extends Fragment {
     FirebaseAuth auth;
     ProgressBar processBar;
 
-    TextView email;
     FirebaseUser user;
 
     @Override
@@ -45,8 +44,6 @@ public class ProfilePageFragment extends Fragment {
                     getActivity().finish();
                 }
         });
-
-
 
         binding.editProfileButton.setOnClickListener(v-> {
             Intent intent = new Intent(getActivity(), editProfile.class);

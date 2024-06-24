@@ -16,98 +16,87 @@
         android:layout_marginEnd="22dp"
         android:orientation="vertical">
 
+        <!-- Logo and Title -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/wearWiseLogIn"
-                android:layout_width="226dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="15dp"
+                android:layout_gravity="center_horizontal"
                 android:text="Wear-Wise"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="40dp" />
+                android:textSize="40sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/logIn"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:text="Login"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="30dp"
-                android:textStyle="italic">
+                android:textSize="30sp"
+                android:textStyle="italic" />
 
-            </TextView>
         </LinearLayout>
 
-        <LinearLayout
+        <!-- Username Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/logInUserName"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:orientation="vertical">
+            android:hint="Username"
+            app:boxStrokeColor="@color/white"
+            app:hintTextColor="@color/LightGrey">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/logInUserName"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/logInUserName_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="30dp"
-                android:hint="UserName:"
-                android:textColorHint="@color/LightGrey"
-                app:boxStrokeColor="@color/white">
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/logInUserName_et"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:singleLine="true"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
-                    android:textSize="25dp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            </com.google.android.material.textfield.TextInputLayout>
+        <!-- Password Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/LogInPassWord"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="Password"
+            app:boxStrokeColor="@color/white"
+            app:hintTextColor="@color/LightGrey"
+            app:passwordToggleEnabled="true">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/LogInPassWord"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/loginPsswrd_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="30dp"
-                android:hint="Password:"
-                android:textColorHint="@color/LightGrey"
-                app:boxStrokeColor="@color/white"
-                app:passwordToggleEnabled="true">
+                android:inputType="textPassword"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/loginPsswrd_et"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:inputType="textPassword"
-                    android:singleLine="true"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
-                    android:textSize="25dp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
-
+        <!-- Progress Bar and Login Button -->
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
             android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="100dp"
             android:layout_marginEnd="100dp">
 
             <ProgressBar
@@ -119,48 +108,39 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnlogIn"
-                android:layout_width="231dp"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="10dp"
                 android:backgroundTint="@color/black"
-                android:paddingStart="20dp"
-                android:paddingTop="10dp"
-                android:paddingEnd="20dp"
-                android:paddingBottom="10dp"
                 android:text="Login"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 app:cornerRadius="10dp" />
-
 
         </FrameLayout>
 
+        <!-- Sign Up Link -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Don't have an account?"
+                android:text="Don't have an account? "
                 android:textColor="@color/white"
-                android:textSize="20dp" />
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/signUpBtn_logIn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center"
-                android:padding="10dp"
                 android:text="Sign Up"
                 android:textColor="@color/white"
-                android:textSize="20dp" />
+                android:textSize="16sp" />
 
         </LinearLayout>
 

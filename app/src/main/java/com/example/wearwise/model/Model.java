@@ -127,8 +127,8 @@ public class Model {
     public void logIn(String username, String password, Listener<Boolean> listener){
         firebaseModel.logIn(username, password, listener);
     }
-    public void createUser(User user, Model.Listener<Boolean> listener){
-        firebaseModel.createUser(user, listener);
+    public void createUser(User user,String password, Model.Listener<Boolean> listener){
+        firebaseModel.createUser(user, password, listener);
     }
     public void logOut(){
         firebaseModel.signOut();

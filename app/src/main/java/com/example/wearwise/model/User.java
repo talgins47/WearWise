@@ -15,6 +15,7 @@ import com.google.firebase.firestore.FieldValue;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class User {
 
@@ -23,7 +24,6 @@ public class User {
     public String email;
     public String username;
     public String fullName;
-    public String password;
     public String city;
     public Long LastUpdate;
 
@@ -32,15 +32,14 @@ public class User {
 
     public User() {}
 
-    public User(@NonNull String email, String username, String fullName, String password, String city) {
-        this.email = email;
-        this.username = username;
+    public User(@NonNull String fullName, String username, String email, String city) {
         this.fullName = fullName;
-        this.password = password;
+        this.username = username;
+        this.email = email;
         this.city = city;
     }
-    static final String FULL_NAME = "full_Name";
-    static final String USERNAME = "user_Name";
+    static final String FULL_NAME = "fullName";
+    static final String USERNAME = "userName";
     static final String EMAIL = "email";
     static final String PASSWORD = "password";
     static final String CITY = "city";
@@ -60,34 +59,6 @@ public class User {
         editor.apply();
     }
 
-
-    public static User fromJson(Map<String, Object> json){
-        String fullName = (String) json.get("full_name");
-        String user_name = (String) json.get("user_name");
-        String email = (String) json.get("email");
-        String password = (String) json.get("password");
-        String city = (String) json.get("city");
-        User user = new User (fullName, user_name, email, password, city);
-        try {
-            Timestamp time = (Timestamp) json.get(LAST_UPDATE);
-            user.setLastUpdate(time.getSeconds());
-        }catch (Exception e) {
-        }
-        return user;
-    }
-
-
-    public Map<String, Object> toJson(){
-        Map<String, Object> json = new HashMap<>();
-        json.put(USERNAME, getUsername());
-        json.put(FULL_NAME, getFullName());
-        json.put(EMAIL, getEmail());
-        json.put(PASSWORD, getPassword());
-        json.put(CITY, getCity());
-        json.put(LAST_UPDATE, FieldValue.serverTimestamp());
-        return json;
-
-    }
     @NonNull
     public String getEmail() {
         return email;
@@ -121,14 +92,6 @@ public class User {
         this.city = city;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public Long getLastUpdate() {
         return LastUpdate;
     }
@@ -137,5 +100,28 @@ public class User {
         LastUpdate = lastUpdate;
     }
 
+    public static Map<String, Object> toJson(User user){
+        Map<String, Object> json=new HashMap<>();
+        json.put("full_name",user.fullName);
+        json.put("username",user.username);
+        json.put("email",user.email);
+        json.put("city",user.city);
+        json.put("lastUpdated", FieldValue.serverTimestamp());
+        return json;
 
+    }
+
+    public static User fromJson(Map<String, Object> json){
+        String fullName = (String) json.get("fullName");
+        String userName = (String) json.get("userName");
+        String email = (String) json.get("email");
+        String city = (String) json.get("city");
+        User user = new User(fullName, userName, email, city);
+        try {
+            Timestamp time = (Timestamp) json.get(LAST_UPDATE);
+            user.setLastUpdate(time.getSeconds());
+        }catch (Exception e) {
+        }
+        return user;
+    }
 }

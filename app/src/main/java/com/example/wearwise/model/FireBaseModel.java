@@ -119,30 +119,33 @@ public class FireBaseModel {
     }
 
     public void addUser(User user) {
-        Map<String, Object> userJson = new HashMap<>();
-        userJson.put("email", user.getEmail());
-        userJson.put("full_name", user.getFullName());
-        userJson.put("user_name", user.getUsername());
-        userJson.put("password", user.getPassword());
-        userJson.put("city", user.getCity());
-        db.collection("users").document().set(user.toJson());
+        db.collection("users").document(user.username).set(User.toJson(user));
 
     }
     public void logIn(String username, String password, Model.Listener<Boolean> listener) {
-        db.collection("Users").document(username).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful() && task.getResult() != null) {
-                User user = User.fromJson(task.getResult().getData());
-                mAuth.signInWithEmailAndPassword(user.email, password)
-                        .addOnCompleteListener(task1 -> listener.onComplete(task1.isSuccessful()));
-            } else {
-                listener.onComplete(task.isSuccessful());
+        db.collection("users").document(username).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful() && task.getResult() != null) {
+                    User user = User.fromJson(task.getResult().getData());
+                    mAuth.signInWithEmailAndPassword(user.email, password)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    listener.onComplete(task.isSuccessful());
+                                }
+                            });
+                } else {
+                    listener.onComplete(task.isSuccessful());
+                }
             }
         });
     }
 
-    public void createUser(User user, Model.Listener<Boolean> listener) {
+
+    public void createUser(User user,String password, Model.Listener<Boolean> listener) {
         addUser(user);
-        mAuth.createUserWithEmailAndPassword(user.email,user.password)
+        mAuth.createUserWithEmailAndPassword(user.email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -155,21 +158,23 @@ public class FireBaseModel {
         db.collection("users").document(userName).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-               User user= User.fromJson(task.getResult().getData());
-                   listener.onComplete(user!=null);
-            }
+                listener.onComplete(task.getResult().getData()!=null);            }
         });
     }
 
     public void isEmailExist(String email, Model.Listener<Boolean> listener) {
-        db.collection("users").document(email).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        db.collection("users").whereEqualTo("email", email).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                User user = User.fromJson(task.getResult().getData());
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                User user=null;
+                for (DocumentSnapshot document : task.getResult()) {
+                    user = User.fromJson(document.getData());
+
+                }
                 listener.onComplete(user!=null);
             }
-        });
-    }
+        });    }
+
 
     public void signOut() {
         mAuth.signOut();

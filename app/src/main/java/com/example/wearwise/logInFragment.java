@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.wearwise.databinding.FragmentLogInBinding;
 import com.example.wearwise.model.Model;
+import com.example.wearwise.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

@@ -13,12 +13,23 @@
         android:id="@+id/postPageFragment"
         android:name="com.example.wearwise.AddPostFragment"
         android:label="fragment_post_page"
-        tools:layout="@layout/fragment_add_post" />
+        tools:layout="@layout/fragment_add_post" >
+        <action
+            android:id="@+id/action_postPageFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profilePageFragment"
         android:name="com.example.wearwise.ProfilePageFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profilePageFragment_to_editProfile"
+            app:destination="@id/editProfile" />
+        <action
+            android:id="@+id/action_profilePageFragment_to_editProfile2"
+            app:destination="@id/editProfile" />
+    </fragment>
     <fragment
         android:id="@+id/likePhotosFragment"
         android:name="com.example.wearwise.likePhotosFragment"
@@ -28,6 +39,30 @@
         android:id="@+id/home_pageFragment"
         android:name="com.example.wearwise.home_pageFragment"
         android:label="home_pageFragment"
-        tools:layout="@layout/fragment_home_page" />
+        tools:layout="@layout/fragment_home_page" >
+        <action
+            android:id="@+id/action_home_pageFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_home_pageFragment_to_postRecyclerList"
+            app:destination="@id/postRecyclerList" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfile"
+        android:name="com.example.wearwise.editProfile"
+        android:label="editProfile"
+        tools:layout="@layout/fragment_edit_profile" >
+        <action
+            android:id="@+id/action_editProfile_to_profilePageFragment"
+            app:destination="@id/profilePageFragment" />
+        <action
+            android:id="@+id/action_editProfile_to_profilePageFragment2"
+            app:destination="@id/profilePageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postRecyclerList"
+        android:name="com.example.wearwise.PostRecyclerList"
+        android:label="fragment_post_recycler_list"
+        tools:layout="@layout/fragment_post_recycler_list" />
     />
 </navigation>

@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.ProgressBar;
 
 import com.example.wearwise.databinding.FragmentProfileBinding;
 import com.example.wearwise.databinding.FragmentSignUpBinding;
+import com.example.wearwise.model.Model;
 import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,21 +35,16 @@ public class ProfilePageFragment extends Fragment {
 
         binding=FragmentProfileBinding.inflate(inflater,container,false);
         View view = binding.getRoot();
-        auth = FirebaseAuth.getInstance();
-        user = auth.getCurrentUser();
-        binding.LogOutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    Intent intent = new Intent(getContext(), logInFragment.class);
-                    startActivity(intent);
-                    getActivity().finish();
-                }
+
+        binding.LogOutButton.setOnClickListener(v -> {
+            Model.instance().logOut();
+            Intent intent = new Intent(getActivity(), SignUpLogInActivity.class);
+            startActivity(intent);
+            getActivity().finish();
         });
 
-        binding.editProfileButton.setOnClickListener(v-> {
-            Intent intent = new Intent(getActivity(), editProfile.class);
-            startActivity(intent);
-            });
-          return view;
+        binding.editProfileButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_profilePageFragment_to_editProfile));
+
+        return view;
     }
 }

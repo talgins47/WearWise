@@ -73,32 +73,33 @@ public class signUpFragment extends Fragment {
             public void onClick(View v) {
                 fullName = binding.signUpNameEt.getText().toString();
                 userName = binding.signUpUserEt.getText().toString();
-                email= binding.signUpEmailEt.getText().toString();
-                password = binding.SignUpPassWord.toString();
+                email = binding.signUpEmailEt.getText().toString();
+                password = binding.signUpPsswrdEt.getText().toString();
                 processBar.setVisibility(View.VISIBLE);
 
-                if(validateInput()) {
-                    Model.instance().isUserNameExist(userName,(userNameIsExist)->{
+                if (validateInput()) {
+                    Model.instance().isUserNameExist(userName, (userNameIsExist) -> {
                         if (userNameIsExist) {
                             makeAToast("Username is Already Exist");
                         } else {
                             Model.instance().isEmailExist(email, (emailIsExist) -> {
                                 if (emailIsExist) {
                                     makeAToast("Email Is Already Exist");
+                                } else {
+                                    User user = new User(fullName, userName, email, city);
+                                    Model.instance().createUser(user, password, (isSuccess) -> {
+                                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                                        startActivity(intent);
+                                        getActivity().finish();
+                                    });
                                 }
+
                             });
                         }
 
+
                     });
                 }
-                User user = new User(email, fullName, userName, password, city);
-                Model.instance().createUser(user,(isSuccess)->{
-                    if(isSuccess){
-                        Intent intent = new Intent(getActivity(), MainActivity.class);
-                        startActivity(intent);
-                        getActivity().finish();
-                    }
-                });
             }
         });
         binding.LogInBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_signUpFragment_to_logInFragment));

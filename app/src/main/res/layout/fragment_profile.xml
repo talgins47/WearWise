@@ -82,7 +82,7 @@
         android:layout_marginEnd="249dp"
         android:background="@drawable/clearview"
         android:text="Edit Profile"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -95,14 +95,14 @@
         android:layout_marginStart="109dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="42dp"
-        android:layout_marginBottom="46dp"
         android:background="@drawable/clearview"
+
         android:text="Log Out"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/Posts"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/editProfileButton"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

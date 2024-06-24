@@ -132,12 +132,16 @@ public class signUpFragment extends Fragment {
             makeAToast("Please enter a valid email");
             return false;
         }
+        else if (Objects.equals(fullName, "")) {
+            makeAToast("Please enter Full Name");
+            return false;
+        }
         else if (Objects.equals(userName, "")) {
-            makeAToast("Please enter an username");
+            makeAToast("Please enter username");
             return false;
 
         } else if (Objects.equals(city, "city")) {
-            makeAToast("Please choose a your home city");
+            makeAToast("Please choose your home city");
             return false;
         } else if (password.length()<8) {
             makeAToast("Password must contains at least 8 characters");

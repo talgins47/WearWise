@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.os.HandlerCompat;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.wearwise.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,6 +36,7 @@ public class Model {
     }
 
     private Model() {
+
     }
 
     List<DailyWeather> dailyData = new LinkedList<>();
@@ -97,7 +99,6 @@ public class Model {
 
     public void getPostByCity(Listener<List<Post>> callback, String city) {
         getRefreshPosts();
-        //return complete list from ROOM
         executor.execute(() -> {
             List<Post> complete = localdb.postsDao().getPostByCity(city);
             mainHandler.post(() -> {
@@ -141,4 +142,5 @@ public class Model {
     public boolean isUserLog(){
         return firebaseModel.isUserLog();
     }
+
 }

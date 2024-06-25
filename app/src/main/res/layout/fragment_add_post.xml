@@ -24,6 +24,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/DescribePost"
         android:layout_width="388dp"
@@ -39,8 +40,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagePost" />
-
+        app:layout_constraintTop_toBottomOf="@+id/imagePost"
+        app:layout_constraintVertical_bias="0.189" />
 
     <Spinner
         android:id="@+id/citySpinerPost"
@@ -48,24 +49,20 @@
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/degreePost" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/degreePost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:hint="degree:"
+        android:textColorHint="#7EFFFFFF"
+        android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/DescribePost" />
-
-    <TextView
-        android:id="@+id/degreePost"
-        android:layout_width="55dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="35dp"
-        android:text="30\u00B0C"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/citySpinerPost" />
 
     <Button
         android:id="@+id/PostpostBtn"

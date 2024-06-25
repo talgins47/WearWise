@@ -73,21 +73,7 @@ public class FireBaseModel {
         });
 
     }
-    public void addPost(Post post, Model.Listener<Void> postListener) {
-        Map<String, Object> postJson = new HashMap<>();
-        postJson.put("postPicPath", post.getPostPicPath());
-        postJson.put("city", post.getCity());
-        postJson.put("describe", post.getDescribe());
-        postJson.put("degree", post.getDegree());
 
-        db.collection("Posts").document().set(post.toJson()).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                postListener.onComplete(null);
-            }
-        });
-
-    }
 
     void uploadImage(String name, Bitmap bitmap, Model.Listener<String> listener){
         StorageReference storageRef = storage.getReference();
@@ -123,26 +109,38 @@ public class FireBaseModel {
 
     }
     public void logIn(String username, String password, Model.Listener<Boolean> listener) {
-        db.collection("users").document(username).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful() && task.getResult() != null) {
-                    User user = User.fromJson(task.getResult().getData());
-                    mAuth.signInWithEmailAndPassword(user.email, password)
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    listener.onComplete(task.isSuccessful());
+        // Assuming db is your Firestore instance and mAuth is your FirebaseAuth instance
+        db.collection("users").document(username).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult() != null) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    User user = User.fromJson(document.getData());
+                    mAuth.signInWithEmailAndPassword(user.getEmail(), password)
+                            .addOnCompleteListener(authTask -> {
+                                if (authTask.isSuccessful()) {
+                                    listener.onComplete(true); // Login successful
+                                } else {
+                                    listener.onComplete(false); // Authentication failed
                                 }
                             });
                 } else {
-                    listener.onComplete(task.isSuccessful());
+                    listener.onComplete(false); // User document does not exist
                 }
+            } else {
+                listener.onComplete(false); // Firestore document retrieval failed
             }
         });
     }
 
 
+    public void addPost(Post post, Model.Listener<Void> postListener) {
+        db.collection("Posts").document(post.city).set(post.toJson(post)).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                postListener.onComplete(null);
+            }
+        });
+    }
     public void createUser(User user,String password, Model.Listener<Boolean> listener) {
         addUser(user);
         mAuth.createUserWithEmailAndPassword(user.email, password)
@@ -186,5 +184,9 @@ public class FireBaseModel {
         return currentUser != null;
 
     }
+
+/*    public void currentUserInfo() {
+        db.collection("users").document()
+    }*/
 }
 

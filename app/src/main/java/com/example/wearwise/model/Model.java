@@ -134,6 +134,9 @@ public class Model {
         firebaseModel.signOut();
 
     }
+/*    public void currentUserInfo(){
+        return firebaseModel.currentUserInfo():
+    }*/
 
     public boolean isUserLog(){
         return firebaseModel.isUserLog();

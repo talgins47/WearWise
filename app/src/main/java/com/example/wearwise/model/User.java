@@ -102,7 +102,7 @@ public class User {
 
     public static Map<String, Object> toJson(User user){
         Map<String, Object> json=new HashMap<>();
-        json.put("full_name",user.fullName);
+        json.put("fullName",user.fullName);
         json.put("username",user.username);
         json.put("email",user.email);
         json.put("city",user.city);
@@ -113,10 +113,10 @@ public class User {
 
     public static User fromJson(Map<String, Object> json){
         String fullName = (String) json.get("fullName");
-        String userName = (String) json.get("userName");
+        String username = (String) json.get("username");
         String email = (String) json.get("email");
         String city = (String) json.get("city");
-        User user = new User(fullName, userName, email, city);
+        User user = new User(fullName, username, email, city);
         try {
             Timestamp time = (Timestamp) json.get(LAST_UPDATE);
             user.setLastUpdate(time.getSeconds());

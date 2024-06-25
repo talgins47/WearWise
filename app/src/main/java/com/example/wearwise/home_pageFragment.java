@@ -52,6 +52,8 @@ public class home_pageFragment extends Fragment {
 //
 //        });
 //
+
+       binding.mainPostBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_home_pageFragment_to_postRecyclerList));
        return binding.getRoot();
 
     }

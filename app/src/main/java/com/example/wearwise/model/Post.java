@@ -68,15 +68,14 @@ public class Post {
         editor.apply();
     }
 
-    public Map<String, Object> toJson(){
+    public static Map<String, Object> toJson(Post post){
         Map<String, Object> json = new HashMap<>();
-        json.put(POST_PIC_PATH, getPostPicPath());
-        json.put(CITY, getCity());
-        json.put(DESCRIBE, getDescribe());
-        json.put(DEGREE, getDegree());
-        json.put(LAST_UPDATE, FieldValue.serverTimestamp());
+        json.put("postPicPath", post.getPostPicPath());
+        json.put("city", post.getCity());
+        json.put("describe", post.getDescribe());
+        json.put("degree", post.getDegree());
+        json.put("lastUpdate", FieldValue.serverTimestamp());
         return json;
-
     }
 
 

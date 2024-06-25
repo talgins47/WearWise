@@ -22,30 +22,43 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.wearwise.Adapters.SpinnerAdapter;
 import com.example.wearwise.databinding.FragmentAddPostBinding;
 import com.example.wearwise.model.Model;
 import com.example.wearwise.model.Post;
+import com.example.wearwise.model.User;
 
 import java.util.UUID;
 
 
 public class AddPostFragment extends Fragment {
 
-    String city;
+    String city= "";
     FragmentAddPostBinding binding;
     ActivityResultLauncher<Void> cameraLaucher;
     Boolean isPicSelected = false;
+    User user;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentAddPostBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
-
+        binding.citySpinerPost.setAdapter(SpinnerAdapter.setCitySpinner(getContext()));
+        binding.citySpinerPost.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                city = parent.getItemAtPosition(position).toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
         binding.PostpostBtn.setOnClickListener(view1 -> {
             String message = binding.DescribePost.getText().toString();
-            String degree = binding.degreePost.getText().toString();
-            Post pt = new Post("",city, message, degree);
+                String degree = binding.degreePost.getText().toString();
+
+                Post pt = new Post("", city, message, degree);
 
             if(isPicSelected){
                 binding.imagePost.setDrawingCacheEnabled(true);
@@ -91,10 +104,6 @@ public class AddPostFragment extends Fragment {
                 }
             }
         });
-
-        ArrayAdapter<String> citySpinnerAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item);
-        citySpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        binding.citySpinerPost.setAdapter(citySpinnerAdapter);
 
         binding.cameraBtnPost.setOnClickListener(view1->{
             cameraLaucher.launch(null);

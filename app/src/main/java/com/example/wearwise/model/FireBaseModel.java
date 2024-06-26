@@ -74,7 +74,6 @@ public class FireBaseModel {
 
     }
 
-
     void uploadImage(String name, Bitmap bitmap, Model.Listener<String> listener){
         StorageReference storageRef = storage.getReference();
         StorageReference imageRef = storageRef.child("image/" + name + ".jpg");
@@ -134,7 +133,7 @@ public class FireBaseModel {
 
 
     public void addPost(Post post, Model.Listener<Void> postListener) {
-        db.collection("Posts").document(post.city).set(post.toJson(post)).addOnCompleteListener(new OnCompleteListener<Void>() {
+        db.collection("Posts").document().set(Post.toJson(post)).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 postListener.onComplete(null);
@@ -171,7 +170,8 @@ public class FireBaseModel {
                 }
                 listener.onComplete(user!=null);
             }
-        });    }
+        });
+    }
 
 
     public void signOut() {
@@ -184,6 +184,9 @@ public class FireBaseModel {
         return currentUser != null;
 
     }
+
+
+
 
 /*    public void currentUserInfo() {
         db.collection("users").document()

@@ -26,7 +26,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder>{
     @Override
     public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.futuer_weather_list_row, parent, false);
+        View inflate = inflater.inflate(R.layout.search_post_row, parent, false);
         //postData = Model.instance().getPost();
         return new PostViewHolder(inflate);
     }
@@ -39,7 +39,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         Post post = postData.get(position);
-        holder.Bind(post, position);
+        holder.bind(post, position);
 
     }
 

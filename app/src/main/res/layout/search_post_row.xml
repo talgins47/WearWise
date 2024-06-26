@@ -7,15 +7,9 @@
 
     <ImageView
         android:id="@+id/search_post_image_row"
-        android:layout_width="384dp"
-        android:layout_height="718dp"
-        android:layout_marginTop="260dp"
-        android:layout_marginBottom="403dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.481"
+        android:layout_width="140dp"
+        android:layout_height="154dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.355"
         app:srcCompat="@drawable/girl" />
 </androidx.constraintlayout.widget.ConstraintLayout>

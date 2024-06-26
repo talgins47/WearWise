@@ -90,24 +90,24 @@ public class Model {
                         time = pt.getLastUpdate();
                     }
                 }
-                //update local last update
                 Post.setLocalLastUpdate(time);
             });
         });
     }
 
-
-    public void getPostByCity(Listener<List<Post>> callback, String city) {
+    public void getPostByCity(String city,Listener<List<Post>> callback) {
         getRefreshPosts();
         executor.execute(() -> {
             List<Post> complete = localdb.postsDao().getPostByCity(city);
             mainHandler.post(() -> {
                 callback.onComplete(complete);
             });
-
         });
-
     }
+/*     List<Post> post = new ArrayList<>();
+      post.add(new Post("", city, "hello all you sucker", "50"));
+     callback.onComplete(post);
+    }*/
 
     public void addPost(Post post, Listener<Void> postListener) {
         firebaseModel.addPost(post,(Void)->{
@@ -142,5 +142,7 @@ public class Model {
     public boolean isUserLog(){
         return firebaseModel.isUserLog();
     }
+
+
 
 }

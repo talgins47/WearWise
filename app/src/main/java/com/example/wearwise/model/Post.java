@@ -38,7 +38,7 @@ public class Post {
     static final String DEGREE = "degree";
     static final String CITY = "city";
     static final String POST_PIC_PATH = "postPicPath";
-    static final String COLLECTION = "post";
+    static final String COLLECTION = "Posts";
     static final String LAST_UPDATE = "lastUpdate";
     static final String LOCAL_LAST_UPDATE = "POSTLocalLastUpdate";
 

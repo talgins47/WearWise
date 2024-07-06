@@ -16,20 +16,19 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 import java.util.Objects;
 
-public class PostViewHolder extends RecyclerView.ViewHolder{
+public class PostViewHolder extends RecyclerView.ViewHolder {
     ImageView postImage;
 
     public PostViewHolder(@NonNull View itemView) {
         super(itemView);
-        this.postImage= itemView.findViewById(R.id.search_post_image_row);
+        this.postImage = itemView.findViewById(R.id.search_post_image_row);
     }
 
     public void bind(Post post, int pos) {
-        if (!Objects.equals(post.getPostPicPath(), "")) {
-            Picasso.get().load(post.getPostPicPath()).placeholder(R.drawable.girl).into(postImage);
-        }else{
-            postImage.setImageResource(R.drawable.girl);
+        if (Objects.equals(post.postPicPath, "")) {
+            this.postImage.setImageResource(R.drawable.girl);
+        } else {
+            Picasso.get().load(post.postPicPath).into(this.postImage);
         }
-
     }
 }

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/home_pageFragment">
+
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.wearwise.SearchFragment"
@@ -22,12 +23,9 @@
         android:id="@+id/profilePageFragment"
         android:name="com.example.wearwise.ProfilePageFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile_page" >
         <action
             android:id="@+id/action_profilePageFragment_to_editProfile"
-            app:destination="@id/editProfile" />
-        <action
-            android:id="@+id/action_profilePageFragment_to_editProfile2"
             app:destination="@id/editProfile" />
     </fragment>
     <fragment
@@ -46,6 +44,9 @@
         <action
             android:id="@+id/action_home_pageFragment_to_postRecyclerList"
             app:destination="@id/postRecyclerList" />
+        <action
+            android:id="@+id/action_home_pageFragment_to_searchFragment2"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/editProfile"

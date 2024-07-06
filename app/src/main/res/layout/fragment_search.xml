@@ -7,12 +7,26 @@
     tools:context=".SearchFragment"
     android:background="@drawable/background">
 
+        <Spinner
+            android:id="@+id/city_search_spinner"
+            android:layout_width="279dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="15dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/whatsNow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.398"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/whatsNow"
             android:layout_width="344dp"
             android:layout_height="59dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="47dp"
             android:text="what's now:"
             android:textColor="@color/white"
@@ -20,179 +34,92 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextView" />
-
+            app:layout_constraintTop_toBottomOf="@+id/city_search_spinner" />
 
         <TextView
-            android:id="@+id/wear_describe"
+            android:id="@+id/chose_city"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="23dp"
-            android:layout_marginBottom="57dp"
-            android:text="Hot Enough For T-Shirt "
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="City"
             android:textColor="@color/white"
-            android:textSize="15dp"
-            app:layout_constraintBottom_toTopOf="@+id/searchFuture"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="25dp"
-            android:layout_marginEnd="18dp"
-            android:layout_marginBottom="50dp"
-            android:text="Agree?"
-            android:textColor="@color/LightGrey"
-            android:textSize="18dp"
-            app:layout_constraintBottom_toTopOf="@+id/Posts"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/whatsNow" />
 
         <TextView
             android:id="@+id/weather_describe"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="176dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginBottom="60dp"
-            android:text="sunny"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:text="N/A"
             android:textColor="@color/white"
             android:textSize="25dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/Posts"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/changeimageweather" />
-
-        <TextView
-            android:id="@+id/city"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="9dp"
-            android:gravity="center"
-            android:text="Tel Aviv"
-            android:textColor="@color/white"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/changeimageweather"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.233"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/whatsNow" />
+            app:layout_constraintTop_toBottomOf="@+id/weatherIcon" />
 
         <TextView
             android:id="@+id/degree"
             android:layout_width="72dp"
             android:layout_height="45dp"
             android:layout_marginStart="76dp"
-            android:layout_marginTop="26dp"
+            android:layout_marginTop="56dp"
             android:layout_marginEnd="10dp"
-            android:text="30\u00B0C"
+            android:text="N/A"
             android:textColor="@color/white"
             android:textSize="30dp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/changeimageweather"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/city" />
-
-        <ImageButton
-            android:id="@+id/dislike"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="24dp"
-            android:background="?attr/background"
-            android:src="@drawable/dislik"
-            app:layout_constraintBottom_toTopOf="@+id/dis"
-            app:layout_constraintStart_toEndOf="@+id/weather_describe" />
+            app:layout_constraintTop_toBottomOf="@+id/chose_city" />
 
         <ImageView
-            android:id="@+id/changeimageweather"
+            android:id="@+id/weatherIcon"
             android:layout_width="87dp"
             android:layout_height="81dp"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="39dp"
             android:src="@drawable/sun"
             app:layout_constraintEnd_toStartOf="@+id/Image_weather"
             app:layout_constraintStart_toEndOf="@+id/degree"
-            app:layout_constraintTop_toBottomOf="@+id/city" />
-
-        <ImageButton
-            android:id="@+id/like"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="25dp"
-            android:background="?attr/background"
-            android:src="@drawable/lik"
-            app:layout_constraintBottom_toTopOf="@+id/textView1"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/chose_city" />
 
         <ImageButton
             android:id="@+id/Image_weather"
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:layout_gravity=""
-            android:layout_marginTop="26dp"
+            android:layout_marginTop="56dp"
             android:layout_marginEnd="62dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:scaleX="1.5"
             android:scaleY="1.5"
             android:src="@drawable/shirt3"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/changeimageweather"
-            app:layout_constraintTop_toBottomOf="@+id/city" />
+            app:layout_constraintStart_toEndOf="@+id/weatherIcon"
+            app:layout_constraintTop_toBottomOf="@+id/chose_city" />
 
-        <TextView
-            android:id="@+id/dis"
-            android:layout_width="wrap_content"
-            android:layout_height="25dp"
-            android:layout_marginStart="79dp"
-            android:layout_marginBottom="50dp"
-            android:text="Disagree?"
-            android:textColor="@color/LightGrey"
-            android:textSize="18dp"
-            app:layout_constraintBottom_toTopOf="@+id/Posts"
-            app:layout_constraintStart_toEndOf="@+id/wear_describe" />
-
-        <Button
+       <!-- <TextView
             android:id="@+id/searchFuture"
             android:layout_width="164dp"
             android:layout_height="42dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="240dp"
             android:background="?attr/background"
-            android:text="Next 7 Days "
+            android:text="Next 7 Days"
             android:textColor="@color/white"
             android:textSize="20dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.551" />
-
-        <AutoCompleteTextView
-            android:id="@+id/autoCompleteTextView"
-            android:layout_width="315dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="21dp"
-            android:layout_marginEnd="14dp"
-            android:hint="City..."
-            android:textSize="20dp"
-            app:layout_constraintEnd_toStartOf="@+id/serachBar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/serachBar"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="4dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:scaleType="fitCenter"
-            android:src="@drawable/search_24dp"
-            app:layout_constraintBottom_toBottomOf="@+id/autoCompleteTextView"
+            app:layout_constraintBottom_toTopOf="@+id/Posts"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/autoCompleteTextView"
-            app:layout_constraintTop_toTopOf="@+id/autoCompleteTextView" />
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/Posts"

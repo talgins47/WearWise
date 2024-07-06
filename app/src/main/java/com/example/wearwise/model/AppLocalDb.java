@@ -6,16 +6,20 @@ import androidx.room.RoomDatabase;
 
 import com.example.wearwise.MyApplication;
 
-@Database(entities = {Post.class}, version = 4)
+@Database(entities = {Post.class, User.class}, version = 16)
 abstract class AppLocalDbRepository extends RoomDatabase{
     public abstract PostsDao postsDao();
+    public abstract UserDao UserDao();
 }
 
-public class AppLocalDb{
+public class AppLocalDb {
     static public AppLocalDbRepository getAppDb() {
         return Room.databaseBuilder(MyApplication.getMyContext(),
                         AppLocalDbRepository.class, "dbFileName.db")
-                .fallbackToDestructiveMigration().build();
+                .fallbackToDestructiveMigration()
+                .build();
     }
-    private AppLocalDb(){}
+
+    private AppLocalDb() {
+    }
 }

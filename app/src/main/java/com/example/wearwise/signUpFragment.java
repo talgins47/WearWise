@@ -42,9 +42,8 @@ import java.util.regex.Pattern;
 public class signUpFragment extends Fragment {
     NavDirections action;
     FragmentSignUpBinding binding;
-    FirebaseAuth mAuth;
-    ProgressBar processBar;
 
+    ProgressBar processBar;
     String fullName;
     String userName;
     String email;
@@ -86,22 +85,24 @@ public class signUpFragment extends Fragment {
                                 if (emailIsExist) {
                                     makeAToast("Email Is Already Exist");
                                 } else {
-                                    User user = new User(fullName, userName, email, city);
+                                    User user = new User(fullName, userName, email, city, "", "");
                                     Model.instance().createUser(user, password, (isSuccess) -> {
-                                        Intent intent = new Intent(getActivity(), MainActivity.class);
-                                        startActivity(intent);
-                                        getActivity().finish();
+                                        if (isSuccess) {
+                                            Intent intent = new Intent(getActivity(), MainActivity.class);
+                                            startActivity(intent);
+                                            getActivity().finish();
+                                        } else {
+                                            Toast.makeText(getContext(), "Error creating user.", Toast.LENGTH_SHORT).show();
+                                        }
                                     });
                                 }
-
                             });
                         }
-
-
                     });
                 }
             }
         });
+
         binding.LogInBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_signUpFragment_to_logInFragment));
 
 

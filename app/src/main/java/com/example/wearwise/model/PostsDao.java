@@ -11,16 +11,15 @@ import java.util.List;
 @Dao
 public interface PostsDao {
 
-    @Query("select * from Post where city = :city")
+    @Query("SELECT * FROM Post WHERE city = :city ORDER BY lastUpdate DESC")
     List<Post> getPostByCity(String city);
 
-    @Query("select * from Post" )
-   LiveData<List<Post>> getAll();
+    @Query("SELECT * FROM Post ORDER BY lastUpdate DESC")
+    List<Post> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(Post...posts);
+    void insertAll(Post posts);
 
     @Delete
     void delete(Post post);
-
 }

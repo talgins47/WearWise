@@ -7,8 +7,9 @@
 
     <ImageView
         android:id="@+id/search_post_image_row"
-        android:layout_width="140dp"
-        android:layout_height="154dp"
+        android:layout_width="99dp"
+        android:layout_height="107dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/girl" />

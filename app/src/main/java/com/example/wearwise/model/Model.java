@@ -1,21 +1,11 @@
 package com.example.wearwise.model;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.View;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.core.os.HandlerCompat;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-
-import com.example.wearwise.MainActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -24,19 +14,22 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class Model {
-    private static final Model _instance = new Model();
+    private static final Model instance = new Model();
 
     private Executor executor = Executors.newSingleThreadExecutor();
     private Handler mainHandler = HandlerCompat.createAsync(Looper.getMainLooper());
     private FireBaseModel firebaseModel = new FireBaseModel();
     AppLocalDbRepository localdb = AppLocalDb.getAppDb();
+    private final UserDao userDao;
 
     public static Model instance() {
-        return _instance;
+        return instance;
     }
 
-    private Model() {
 
+    private Model() {
+        AppLocalDbRepository db = AppLocalDb.getAppDb();
+        userDao = db.UserDao();
     }
 
     List<DailyWeather> dailyData = new LinkedList<>();
@@ -50,9 +43,22 @@ public class Model {
         List<String> cities = new ArrayList<>();
         cities.add(0,"city");
         cities.add(1,"Tel Aviv");
-        cities.add(2,"Kfar Sava");
+        cities.add(2,"Kfar Saba");
         cities.add(3,"Netanya");
-        cities.add(4,"lod");
+        cities.add(4,"Jerusalem");
+        cities.add(5,"Haifa");
+        cities.add(6,"amsterdam ");
+        cities.add(7,"Eilat");
+        cities.add(8,"Berlin");
+        cities.add(9,"moscow");
+        cities.add(10,"new york");
+        cities.add(11,"oslo");
+        cities.add(12,"kopenhagen");
+
+
+
+
+
         return cities;
     }
 
@@ -69,13 +75,13 @@ public class Model {
     }
 
     private LiveData<List<Post>> postList;
-    public LiveData<List<Post>> getAllPosts() {
+   /* public LiveData<List<Post>> getAllPosts() {
         if (postList == null) {
             postList = localdb.postsDao().getAll();
         }
         return postList;
     }
-
+*/
     public void getRefreshPosts() {
         //get local last update
         Long localLastUpdate = Post.getLocalLastUpdate();

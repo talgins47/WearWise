@@ -9,6 +9,38 @@
 
 
     <TextView
+        android:id="@+id/city"
+        android:layout_width="108dp"
+        android:layout_height="34dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="156dp"
+        android:gravity="center"
+        android:text="City"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.448"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/fullName"
+        android:layout_width="102dp"
+        android:layout_height="23dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="fullName"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileIcon" />
+
+    <TextView
         android:id="@+id/profileHeadline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,11 +56,11 @@
 
     <ImageView
         android:id="@+id/profileIcon"
-        android:layout_width="96dp"
-        android:layout_height="107dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="116dp"
         android:src="@drawable/profile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -38,21 +70,21 @@
         android:layout_width="108dp"
         android:layout_height="34dp"
         android:layout_gravity="center"
-        android:layout_marginTop="240dp"
+        android:layout_marginTop="116dp"
         android:gravity="center"
         android:text="Username"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.455"
+        app:layout_constraintHorizontal_bias="0.448"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/Posts"
-        android:layout_width="387dp"
-        android:layout_height="386dp"
+        android:layout_width="391dp"
+        android:layout_height="453dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="72dp"
@@ -61,47 +93,41 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/bioProfile"
         android:layout_width="371dp"
         android:layout_height="30dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="292dp"
+        android:layout_marginTop="268dp"
         android:hint="Bio"
         android:textColorHint="@color/LightGrey"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.033"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/editProfileButton"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="249dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/clearview"
         android:text="Edit Profile"
-        android:textSize="20sp"
+        android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/LogOutButton"
-        android:layout_width="125dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="109dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="42dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
         android:background="@drawable/clearview"
-
         android:text="Log Out"
-        android:textSize="20sp"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editProfileButton"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/editProfileButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -30,34 +30,32 @@ import java.util.Map;
 public class editProfile extends Fragment {
 
     FragmentEditProfileBinding binding;
-    FirebaseAuth mAuth;
     FirebaseFirestore db;
-    FirebaseUser currentUser;
     ProgressBar progressBar;
 
-    @Override
+   /* @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         currentUser = mAuth.getCurrentUser();
-    }
+    }*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentEditProfileBinding.inflate(inflater, container, false);
 
-        // Retrieve user data from Firestore and populate EditText fields
+     /*   // Retrieve user data from Firestore and populate EditText fields
         retrieveUserData();
 
         // Save changes button click listener
-        binding.saveChangesBtn.setOnClickListener(v -> saveChanges());
+        binding.saveChangesBtn.setOnClickListener(v -> saveChanges());*/
 
         return binding.getRoot();
     }
 
-    private void retrieveUserData() {
+   /* private void retrieveUserData() {
         if (currentUser != null) {
             DocumentReference docRef = db.collection("users").document(currentUser.getUid());
             docRef.get().addOnCompleteListener(task -> {
@@ -124,5 +122,5 @@ public class editProfile extends Fragment {
             }
         }
         return 0; // Default to first item if not found
-    }
+    }*/
 }

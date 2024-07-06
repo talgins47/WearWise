@@ -7,7 +7,7 @@ public class RetrofitClient {
     private static Retrofit retrofit = null;
     private static final String baseUrl="http://api.geonames.org/";
 
-    public static Retrofit getClient() {
+    public static Retrofit getClient(String baseUrl) {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)

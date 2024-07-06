@@ -21,6 +21,7 @@ import android.widget.BaseAdapter;
 import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.wearwise.Adapters.DailyWeatherAdapter;
 import com.example.wearwise.Adapters.PostAdapter;
@@ -35,11 +36,14 @@ public class home_pageFragment extends Fragment {
     private RecyclerView Dailylist;
     FragmentHomePageBinding binding;
 
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        binding = FragmentHomePageBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+
 
 //
-      binding = FragmentHomePageBinding.inflate(inflater, container, false);
 //        Dailylist.setHasFixedSize(true);
 //        Dailylist.setLayoutManager(new LinearLayoutManager(getContext()));
 //        Dailylist.setAdapter(new DailyWeatherAdapter());
@@ -53,7 +57,7 @@ public class home_pageFragment extends Fragment {
 //        });
 //
 
-       binding.mainPostBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_home_pageFragment_to_postRecyclerList));
+        binding.mainPostBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_home_pageFragment_to_postRecyclerList));
        return binding.getRoot();
 
     }

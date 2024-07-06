@@ -1,14 +1,8 @@
 package com.example.wearwise.model;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.view.View;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-
-import com.example.wearwise.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,10 +22,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 public class FireBaseModel {
     private FirebaseFirestore db;
@@ -58,19 +50,19 @@ public class FireBaseModel {
         db.collection(Post.COLLECTION).whereGreaterThanOrEqualTo(Post.LAST_UPDATE, new Timestamp(since, 0))
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                List<Post> list = new LinkedList<>();
-                if(task.isSuccessful()){
-                    QuerySnapshot jsonList = task.getResult();
-                    for(DocumentSnapshot json: jsonList){
-                       Post pt = Post.fromJson(json.getData());
-                       list.add(pt);
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        List<Post> list = new LinkedList<>();
+                        if(task.isSuccessful()){
+                            QuerySnapshot jsonList = task.getResult();
+                            for(DocumentSnapshot json: jsonList){
+                                Post pt = Post.fromJson(json.getData());
+                                list.add(pt);
+                            }
+                        }
+                        callback.onComplete(list);
                     }
-                }
-                callback.onComplete(list);
-            }
-        });
+                });
 
     }
 
@@ -147,7 +139,7 @@ public class FireBaseModel {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         listener.onComplete(true);
-                        }
+                    }
                 });
     }
 
@@ -184,12 +176,4 @@ public class FireBaseModel {
         return currentUser != null;
 
     }
-
-
-
-
-/*    public void currentUserInfo() {
-        db.collection("users").document()
-    }*/
 }
-

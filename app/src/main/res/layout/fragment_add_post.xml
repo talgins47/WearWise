@@ -7,119 +7,118 @@
     tools:context=".AddPostFragment"
     android:background="@drawable/background">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/NewPost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="120dp"
-        android:text="New Post"
-        android:textColor="@color/white"
-        android:textSize="40dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+            <TextView
+                android:id="@+id/NewPost"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="52dp"
+                android:text="New Post"
+                android:textColor="@color/white"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/DescribePost"
-        android:layout_width="388dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="8dp"
-        android:hint="Descirption:"
-        android:textColorHint="#7EFFFFFF"
-        android:textSize="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/citySpinerPost"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagePost"
-        app:layout_constraintVertical_bias="0.189" />
+            <ImageView
+                android:id="@+id/imagePost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/girl"
+                app:layout_constraintTop_toBottomOf="@id/NewPost"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintDimensionRatio="H,3:4" />
 
-    <Spinner
-        android:id="@+id/citySpinerPost"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/degreePost" />
+            <ImageButton
+                android:id="@+id/galleryBtnPost"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="24dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@android:drawable/ic_menu_gallery"
+                app:layout_constraintBottom_toTopOf="@id/DescribePost"
+                app:layout_constraintEnd_toStartOf="@id/cameraBtnPost" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/degreePost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:hint="degree:"
-        android:textColorHint="#7EFFFFFF"
-        android:textSize="25dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DescribePost" />
+            <ImageButton
+                android:id="@+id/cameraBtnPost"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="44dp"
+                android:layout_marginBottom="24dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@android:drawable/ic_menu_camera"
+                app:layout_constraintBottom_toTopOf="@id/DescribePost"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
-        android:id="@+id/PostpostBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="161dp"
-        android:layout_marginEnd="162dp"
-        android:layout_marginBottom="52dp"
-        android:backgroundTint="@color/white"
-        android:text="Post"
-        android:textColor="#2196F3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/DescribePost"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="24dp"
+                android:hint="Description:"
+                android:textColorHint="#7EFFFFFF"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imagePost" />
 
-    <ImageView
-        android:id="@+id/imagePost"
-        android:layout_width="179dp"
-        android:layout_height="217dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="20dp"
-        android:scaleType="fitCenter"
-        android:scaleX="1"
-        android:scaleY="1"
-        android:src="@drawable/girl"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.556"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/NewPost" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/degreePost"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="24dp"
+                android:hint="Degree:"
+                android:textColorHint="#7EFFFFFF"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/DescribePost" />
 
-    <ImageButton
-        android:id="@+id/galleryBtnPost"
-        android:layout_width="39dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="20dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:scaleX="1.5"
-        android:scaleY="1.5"
-        android:src="@android:drawable/ic_menu_gallery"
-        app:layout_constraintBottom_toTopOf="@+id/DescribePost"
-        app:layout_constraintEnd_toStartOf="@+id/cameraBtnPost"
-        android:contentDescription="gallery"/>
+            <Spinner
+                android:id="@+id/citySpinerPost"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/degreePost" />
 
-    <ImageButton
-        android:id="@+id/cameraBtnPost"
-        android:layout_width="37dp"
-        android:layout_height="34dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="18dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:scaleX="1.5"
-        android:scaleY="1.5"
-        android:src="@android:drawable/ic_menu_camera"
-        app:layout_constraintBottom_toTopOf="@+id/DescribePost"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="camera"/>
+            <Button
+                android:id="@+id/PostpostBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="52dp"
+                android:backgroundTint="@color/white"
+                android:text="Post"
+                android:textColor="#2196F3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/citySpinerPost" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

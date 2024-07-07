@@ -51,7 +51,7 @@ public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyViewHolder> {
     @Override
     public DailyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.futuer_weather_list_row, parent, false);
-        dailyItems = Model.instance().getDailyWeather();
+        //dailyItems = Model.instance().getDailyWeather();
         return new DailyViewHolder(inflate);
     }
 

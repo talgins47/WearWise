@@ -31,6 +31,7 @@
             android:text="what's now:"
             android:textColor="@color/white"
             android:textSize="40dp"
+            android:gravity="center"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -54,13 +55,12 @@
             android:id="@+id/weather_describe"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:layout_marginStart="52dp"
             android:layout_marginTop="8dp"
             android:text="N/A"
             android:textColor="@color/white"
             android:textSize="25dp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.233"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/weatherIcon" />
 
@@ -68,9 +68,8 @@
             android:id="@+id/degree"
             android:layout_width="72dp"
             android:layout_height="45dp"
-            android:layout_marginStart="76dp"
-            android:layout_marginTop="56dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="52dp"
             android:text="N/A"
             android:textColor="@color/white"
             android:textSize="30dp"
@@ -80,32 +79,18 @@
 
         <ImageView
             android:id="@+id/weatherIcon"
-            android:layout_width="87dp"
-            android:layout_height="81dp"
-            android:layout_marginStart="20dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="50dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="39dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/sun"
             app:layout_constraintEnd_toStartOf="@+id/Image_weather"
             app:layout_constraintStart_toEndOf="@+id/degree"
             app:layout_constraintTop_toBottomOf="@+id/chose_city" />
 
-        <ImageButton
-            android:id="@+id/Image_weather"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_gravity=""
-            android:layout_marginTop="56dp"
-            android:layout_marginEnd="62dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:scaleX="1.5"
-            android:scaleY="1.5"
-            android:src="@drawable/shirt3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/weatherIcon"
-            app:layout_constraintTop_toBottomOf="@+id/chose_city" />
-
-       <!-- <TextView
+        <!-- <TextView
             android:id="@+id/searchFuture"
             android:layout_width="164dp"
             android:layout_height="42dp"
@@ -120,6 +105,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent" />-->
+
+        <ImageButton
+            android:id="@+id/Image_weather"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="232dp"
+            android:layout_marginEnd="28dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="fitCenter"
+            android:src="@drawable/shirt3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/Posts"

@@ -1,33 +1,30 @@
-/*
 package com.example.wearwise;
 
 import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+
 import com.example.wearwise.model.Model;
 import com.example.wearwise.model.User;
 
-public class UserViewModel extends AndroidViewModel {
+public class UserViewModel extends ViewModel {
     private final MutableLiveData<User> userLiveData = new MutableLiveData<>();
 
-    public UserViewModel(Application application) {
-        super(application);
-    }
+    private  LiveData<User> user;
 
-    public LiveData<User> getUserLiveData() {
-        return userLiveData;
-    }
-
-    public void fetchUser(String email) {
-        Model.instance().fetchUserFromFirebase(email, user -> {
-            if (user != null) {
-                userLiveData.setValue(user);
+        public LiveData<User> getUser() {
+            if (user == null) {
+                user = Model.instance().getLoggedUserUsername();
             }
-        });
-    }
+            return user;
+        }
 
-    public LiveData<User> getUserFromLocalDb(String email) {
-        return Model.instance().getUserFromLocalDb(email);
+        private  void loadUser() {
+        }
+
+        public  void refreshUser() {
+            loadUser();
+        }
     }
-}*/

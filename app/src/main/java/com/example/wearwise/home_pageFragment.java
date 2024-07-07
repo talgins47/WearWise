@@ -43,20 +43,6 @@ public class home_pageFragment extends Fragment {
         View view = binding.getRoot();
 
 
-//
-//        Dailylist.setHasFixedSize(true);
-//        Dailylist.setLayoutManager(new LinearLayoutManager(getContext()));
-//        Dailylist.setAdapter(new DailyWeatherAdapter());
-//        binding.mainPostBtn.setOnClickListener((v)->{
-//
-//    Dialog dialog = new DatePickerDialog(getContext(), (WeatherPicker, "hot as fuck")->{
-//
-//            },);
-//
-//
-//        });
-//
-
         binding.mainPostBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_home_pageFragment_to_postRecyclerList));
        return binding.getRoot();
 

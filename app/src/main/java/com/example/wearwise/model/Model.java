@@ -7,6 +7,8 @@ import android.os.Looper;
 import androidx.core.os.HandlerCompat;
 import androidx.lifecycle.LiveData;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,6 +23,8 @@ public class Model {
     private FireBaseModel firebaseModel = new FireBaseModel();
     AppLocalDbRepository localdb = AppLocalDb.getAppDb();
     private final UserDao userDao;
+    public String username;
+
 
     public static Model instance() {
         return instance;
@@ -37,6 +41,44 @@ public class Model {
     public List<DailyWeather> getDailyWeather() {
         return dailyData;
 
+    }
+
+    private LiveData<User> user;
+
+    public LiveData<User> getLoggedUserUsername(){
+
+        String username=firebaseModel.getLoggedUserUsername();
+        if (username!=null){
+            this.username=username;
+        }
+
+
+        if (user==null){
+            user=localdb.UserDao().getUserByUsername(this.username);
+            refreshAllUsers();
+
+        }
+
+        return user;
+
+    }
+
+    public void refreshAllUsers(){
+        Long localLastUpdate= User.getUserlastUpdate();
+        firebaseModel.getAllUsersSince(localLastUpdate,(users)->{
+            executor.execute(()->{
+                Long time=localLastUpdate;
+                for (User user : users) {
+                    localdb.UserDao().insert(user);
+                    if (user.getLastUpdate() > time) {
+                        time=user.getLastUpdate();
+                    }
+                }
+                User.setLocalLastUpdate(time);
+
+            });
+
+        });
     }
 
     public List<String> getCities() {
@@ -70,6 +112,11 @@ public class Model {
         firebaseModel.isEmailExist(email, listener);
     }
 
+    public void updateUser(User user, Listener<Void> listener) {
+        firebaseModel.updateUser(user,listener);
+        refreshAllUsers();
+    }
+
     public interface Listener<T> {
         void onComplete(T data);
     }
@@ -101,7 +148,7 @@ public class Model {
         });
     }
 
-    public void getPostByCity(String city,Listener<List<Post>> callback) {
+/*    public void getPostByCity(String city,Listener<List<Post>> callback) {
         getRefreshPosts();
         executor.execute(() -> {
             List<Post> complete = localdb.postsDao().getPostByCity(city);
@@ -109,7 +156,7 @@ public class Model {
                 callback.onComplete(complete);
             });
         });
-    }
+    }*/
 /*     List<Post> post = new ArrayList<>();
       post.add(new Post("", city, "hello all you sucker", "50"));
      callback.onComplete(post);
@@ -139,16 +186,21 @@ public class Model {
     }
     public void logOut(){
         firebaseModel.signOut();
+        user=null;
 
     }
 /*    public void currentUserInfo(){
         return firebaseModel.currentUserInfo():
     }*/
 
+
+
     public boolean isUserLog(){
         return firebaseModel.isUserLog();
     }
 
-
+    public void loadUserData(String username, Model.Listener<User> listener) {
+            firebaseModel.loadUserData(username, listener);
+        }
 
 }

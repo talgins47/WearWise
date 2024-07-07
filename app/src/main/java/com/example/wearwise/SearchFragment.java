@@ -52,10 +52,6 @@ public class SearchFragment extends Fragment {
     FragmentSearchBinding binding;
     Dialog dialog;
 
-
-    private final String appid = "adf23b2696641c7f4c693b27f920c4ff";
-    DecimalFormat df  = new DecimalFormat("#.#");
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentSearchBinding.inflate(inflater, container, false);
@@ -83,9 +79,10 @@ public class SearchFragment extends Fragment {
                             int drawableId = WeatherModel.instance.getDrawableForTemperature(weather.getTemp());
                             binding.ImageWeather.setImageResource(drawableId);
 
+
                             String suggestion = WeatherModel.instance.wearSuggestion(weather.getTemp());
 
-                            Dialog dialog = new Dialog(getContext());
+                            dialog = new Dialog(getContext());
                             dialog.setContentView(R.layout.costum_wear_suggest);
                             dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                             dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_box);

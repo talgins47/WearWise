@@ -28,7 +28,7 @@ public class User {
     public String fullName;
     public String city;
     public Long LastUpdate;
-    public String postPicPath;
+    public String postPicPath = "android.resource://com.example.wearwise/drawable/profile";
     public String bio;
 
     public User() {}
@@ -51,18 +51,15 @@ public class User {
     static final String POST_PIC_PATH = "postPicPath";
     static final String BIO = "bio";
     static final String LAST_UPDATE = "lastUpdate";
-    static final String LOCAL_LAST_UPDATE = "POSTLocalLastUpdate";
+    static final String LOCAL_LAST_UPDATE = "LocalLastUpdate";
 
-    static Long getUserlastUpdate() {
-        SharedPreferences sharePref = MyApplication.getMyContext().getSharedPreferences("TAG", Context.MODE_PRIVATE);
-        return sharePref.getLong(LOCAL_LAST_UPDATE, 0);
+    static Long getUserlastUpdate(){
+        long time = MyApplication.getMyContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).getLong("LocalLastUpdate", 0);
+        return time;
     }
 
     public static void setLocalLastUpdate(Long time) {
-        SharedPreferences sharePref = MyApplication.getMyContext().getSharedPreferences("TAG", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharePref.edit();
-        editor.putLong(LOCAL_LAST_UPDATE, time);
-        editor.apply();
+        MyApplication.getMyContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).edit().putLong("LocalLastUpdate",time).commit();
     }
 
     public String getPostPicPath() {
@@ -122,6 +119,20 @@ public class User {
         LastUpdate = lastUpdate;
     }
 
+    public static User fromJson(Map<String, Object> json){
+        String fullName = (String) json.get("fullName");
+        String username = (String) json.get("username");
+        String email = (String) json.get("email");
+        String city = (String) json.get("city");
+        String postPicPath = (String) json.get("postPicPath");
+        String bio = (String) json.get("bio");
+        User user = new User(fullName, username, email, city, postPicPath, bio);
+        Timestamp ts=(Timestamp)json.get("lastUpdate");
+        assert ts != null;
+        user.setLastUpdate(ts.getSeconds());
+        return user;
+    }
+
     public static Map<String, Object> toJson(User user){
         Map<String, Object> json=new HashMap<>();
         json.put("fullName",user.fullName);
@@ -135,22 +146,5 @@ public class User {
         return json;
 
     }
-
-    public static User fromJson(Map<String, Object> json){
-        String fullName = (String) json.get("fullName");
-        String username = (String) json.get("username");
-        String email = (String) json.get("email");
-        String city = (String) json.get("city");
-        String postPicPath = (String) json.get("postPicPath");
-        String bio = (String) json.get("bio");
-        User user = new User(fullName, username, email, city, postPicPath, bio);
-        try {
-            Timestamp time = (Timestamp) json.get(LAST_UPDATE);
-            user.setLastUpdate(time.getSeconds());
-        }catch (Exception e) {
-        }
-        return user;
-    }
-
 
 }

@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase;
 
 import com.example.wearwise.MyApplication;
 
-@Database(entities = {Post.class, User.class}, version = 16)
+@Database(entities = {Post.class, User.class}, version = 20)
 abstract class AppLocalDbRepository extends RoomDatabase{
     public abstract PostsDao postsDao();
     public abstract UserDao UserDao();

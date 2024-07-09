@@ -21,18 +21,31 @@ public class Post {
 
     @PrimaryKey
     @NonNull
+    public String id;
     public String city;
     public String describe;
     public String degree;
     public String postPicPath;
     public Long LastUpdate;
 
+    public long getUploadPostTime() {
+        return uploadPostTime;
+    }
+
+    public void setUploadPostTime(long uploadPostTime) {
+        this.uploadPostTime = uploadPostTime;
+    }
+
+    public long uploadPostTime;
+
     public Post(){}
-    public Post(String postPicPath, String city, String describe, String degree) {
+
+    public Post(String postPicPath, String city, String describe, String degree, long uploadPostTime) {
         this.postPicPath = postPicPath;
         this.city = city;
         this.describe = describe;
         this.degree = degree;
+        this.uploadPostTime = uploadPostTime;
     }
     static final String DESCRIBE = "describe";
     static final String DEGREE = "degree";
@@ -47,7 +60,7 @@ public class Post {
         String city = (String) json.get("city");
         String describe = (String) json.get("describe");
         String degree = (String) json.get("degree");
-        Post pt = new Post(postPicPath, city, describe, degree);
+        Post pt = new Post(postPicPath, city, describe, degree, 0);
         try {
             Timestamp time = (Timestamp) json.get(LAST_UPDATE);
             pt.setLastUpdate(time.getSeconds());

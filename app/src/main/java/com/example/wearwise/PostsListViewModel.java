@@ -9,7 +9,7 @@ import com.example.wearwise.model.Post;
 
 import java.util.List;
 
-public class PostsListFragmentViewModel extends ViewModel {
+public class PostsListViewModel extends ViewModel {
     private MutableLiveData<List<Post>> postData = new MutableLiveData<>();
 
     public LiveData<List<Post>> getPostsByCity(String city) {

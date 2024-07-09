@@ -3,15 +3,20 @@ package com.example.wearwise.model;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.core.os.HandlerCompat;
 import androidx.lifecycle.LiveData;
+import androidx.sqlite.db.SimpleSQLiteQuery;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -148,24 +153,33 @@ public class Model {
         });
     }
 
+
 /*    public void getPostByCity(String city,Listener<List<Post>> callback) {
         getRefreshPosts();
-        executor.execute(() -> {
-            List<Post> complete = localdb.postsDao().getPostByCity(city);
-            mainHandler.post(() -> {
-                callback.onComplete(complete);
-            });
+
+        executor.execute(()->{
+            StringBuilder queryBuilder = new StringBuilder("SELECT * FROM Post WHERE 1=1 ");
+
+            List<Object> args = new ArrayList<>();
+
+            if (!Objects.equals(city,"city")) {
+                args.add(city);
+            }
+            SimpleSQLiteQuery query = new SimpleSQLiteQuery(queryBuilder.toString(), args.toArray());
+
+            List<Post> data= localdb.postsDao().getPostByCity(city);
+            mainHandler.post(()->callback.onComplete(data));
         });
+
+
     }*/
-/*     List<Post> post = new ArrayList<>();
-      post.add(new Post("", city, "hello all you sucker", "50"));
-     callback.onComplete(post);
-    }*/
+
 
     public void addPost(Post post, Listener<Void> postListener) {
         firebaseModel.addPost(post,(Void)->{
             getRefreshPosts();
             postListener.onComplete(null);
+
 
         });
     }
@@ -202,5 +216,37 @@ public class Model {
     public void loadUserData(String username, Model.Listener<User> listener) {
             firebaseModel.loadUserData(username, listener);
         }
+
+
+
+    // Method to get all posts from local database
+    public void getAllPostsFromLocalDb(Listener<List<Post>> listener) {
+        executor.execute(() -> {
+            List<Post> posts = localdb.postsDao().getAll();
+            mainHandler.post(() -> {
+                listener.onComplete(posts);
+            });
+        });
+    }
+    public void getPostByCity(String city,Listener<List<Post>> listener){
+        getRefreshPosts();
+
+        executor.execute(()->{
+            StringBuilder queryBuilder = new StringBuilder("SELECT * FROM Post WHERE 1=1 ");
+
+            List<Object> args = new ArrayList<>();
+
+            if (!Objects.equals(city,"city")) {
+                queryBuilder.append(" AND city = ?");
+                args.add(city);
+            }
+
+            SimpleSQLiteQuery query = new SimpleSQLiteQuery(queryBuilder.toString(), args.toArray());
+            List<Post> data= localdb.postsDao().getPostsByQuery(query);
+            mainHandler.post(()->listener.onComplete(data));
+        });
+
+
+    }
 
 }

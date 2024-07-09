@@ -79,7 +79,7 @@ public class AddPostFragment extends Fragment {
             }
 
             String degreeWithCelsius = degree + "°C";
-            Post pt = new Post("", city, message, degreeWithCelsius);
+            Post pt = new Post("", city, message, degreeWithCelsius, System.currentTimeMillis());
 
             if (isPicSelected) {
                 binding.imagePost.setDrawingCacheEnabled(true);

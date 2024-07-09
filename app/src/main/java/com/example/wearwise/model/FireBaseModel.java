@@ -23,6 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.MemoryCacheSettings;
 import com.google.firebase.firestore.MemoryLruGcSettings;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.WriteBatch;
 import com.google.firebase.storage.FirebaseStorage;
@@ -31,6 +32,8 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -66,6 +69,7 @@ public class FireBaseModel {
                             QuerySnapshot jsonList = task.getResult();
                             for (DocumentSnapshot json : jsonList) {
                                 Post pt = Post.fromJson(json.getData());
+                                pt.id = json.getId();
                                 list.add(pt);
                             }
                         }
@@ -133,6 +137,7 @@ public class FireBaseModel {
     }
 
     public void addPost(Post post, Model.Listener<Void> postListener) {
+       post.uploadPostTime = Calendar.getInstance().getTimeInMillis();
         db.collection("Posts").document().set(Post.toJson(post)).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -235,7 +240,7 @@ public class FireBaseModel {
     public void getLoggedUser(Model.Listener<User> listener) {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         Log.d("TAG", currentUser.getEmail());
-        db.collection("User").whereEqualTo("email", currentUser.getEmail()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("users").whereEqualTo("email", currentUser.getEmail()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 User user = User.fromJson(task.getResult().getDocuments().get(0).getData());
@@ -256,4 +261,6 @@ public class FireBaseModel {
             }
         });
     }
+
+
 }

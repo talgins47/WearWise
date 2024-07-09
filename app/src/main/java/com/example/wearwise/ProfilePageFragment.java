@@ -36,7 +36,7 @@ public class ProfilePageFragment extends Fragment {
     FirebaseFirestore fStore;
     String userId;
     User user;
-    profileViewModel viewModel;
+    //profileViewModel viewModel;
     View view;
 /*
     ProfileListAdapter adapter;

@@ -25,7 +25,7 @@ public class PostRecyclerList extends Fragment {
 
     private FragmentPostRecyclerListBinding binding;
     private PostAdapter adapter;
-    private PostsListFragmentViewModel viewModel;
+    private PostsListViewModel viewModel;
     private String city = "";
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,6 +65,6 @@ public class PostRecyclerList extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        viewModel = new ViewModelProvider(this).get(PostsListFragmentViewModel.class);
+        viewModel = new ViewModelProvider(this).get(PostsListViewModel.class);
     }
 }

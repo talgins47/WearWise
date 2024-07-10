@@ -27,10 +27,13 @@ public class Post {
     public String degree;
     public String postPicPath;
     public Long LastUpdate;
+    public String username;
+
 
     public long getUploadPostTime() {
         return uploadPostTime;
     }
+
 
     public void setUploadPostTime(long uploadPostTime) {
         this.uploadPostTime = uploadPostTime;
@@ -40,12 +43,13 @@ public class Post {
 
     public Post(){}
 
-    public Post(String postPicPath, String city, String describe, String degree, long uploadPostTime) {
+    public Post(String username,String postPicPath, String city, String describe, String degree, long uploadPostTime) {
         this.postPicPath = postPicPath;
         this.city = city;
         this.describe = describe;
         this.degree = degree;
         this.uploadPostTime = uploadPostTime;
+        this.username = username;
     }
     static final String DESCRIBE = "describe";
     static final String DEGREE = "degree";
@@ -56,11 +60,12 @@ public class Post {
     static final String LOCAL_LAST_UPDATE = "POSTLocalLastUpdate";
 
     public static Post fromJson(Map<String, Object> json){
+        String username = (String) json.get("username");
         String postPicPath = (String) json.get("postPicPath");
         String city = (String) json.get("city");
         String describe = (String) json.get("describe");
         String degree = (String) json.get("degree");
-        Post pt = new Post(postPicPath, city, describe, degree, 0);
+        Post pt = new Post(username,postPicPath, city, describe, degree, 0);
         try {
             Timestamp time = (Timestamp) json.get(LAST_UPDATE);
             pt.setLastUpdate(time.getSeconds());
@@ -88,6 +93,7 @@ public class Post {
         json.put("describe", post.getDescribe());
         json.put("degree", post.getDegree());
         json.put("lastUpdate", FieldValue.serverTimestamp());
+        json.put("username", post.getUsername());
         return json;
     }
 
@@ -132,4 +138,13 @@ public class Post {
     public void setLastUpdate(Long lastUpdate) {
         LastUpdate = lastUpdate;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
 }

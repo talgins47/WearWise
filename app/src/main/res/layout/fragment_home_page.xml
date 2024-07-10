@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/HomeLocation"
@@ -16,7 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text="Netanya"
+            android:text="City"
             android:textColor="@color/white"
             android:textSize="50dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -25,73 +22,78 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView14"
-            android:layout_width="match_parent"
+            android:id="@+id/currentTemp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mon July 4 | 09:45 AM"
+            android:layout_marginTop="100dp"
+            android:text="N/A"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="19dp"
-            app:layout_constraintBottom_toTopOf="@+id/show"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-        <TextView
-            android:id="@+id/show"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="30°C"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="63dp"
+            android:textSize="30dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.106"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+            app:layout_constraintTop_toBottomOf="@+id/HomeLocation" />
+
+        <TextView
+            android:id="@+id/feelsLike"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="148dp"
+            android:text="N/A"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/weatherHomeIcon"
+            app:layout_constraintHorizontal_bias="0.198"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/HomeLocation" />
 
         <Button
             android:id="@+id/mainPostBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Posts >"
+            android:layout_marginTop="60dp"
             android:background="@drawable/clearview"
+            android:text="Posts >"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/future_weather_list"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/mainFuture"
-            app:layout_constraintTop_toBottomOf="@+id/show" />
+            app:layout_constraintTop_toBottomOf="@+id/weatherHomeIcon" />
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/wearSuggest"
             android:layout_width="75dp"
             android:layout_height="75dp"
-            android:layout_marginTop="124dp"
+            android:layout_marginTop="100dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/weatherHomeIcon"
             app:layout_constraintTop_toBottomOf="@+id/HomeLocation"
             app:srcCompat="@drawable/shirt3" />
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="110dp"
-            android:layout_marginTop="52dp"
-            app:layout_constraintEnd_toStartOf="@+id/imageView3"
-            app:layout_constraintHorizontal_bias="0.08"
+            android:id="@+id/weatherHomeIcon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="152dp"
+            android:layout_marginTop="48dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/sun"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/HomeLocation"
             app:srcCompat="@drawable/sun" />
+
+
 
         <TextView
             android:id="@+id/mainFuture"
             android:layout_width="197dp"
             android:layout_height="47dp"
+            android:layout_marginTop="60dp"
             android:gravity="center"
             android:text="Next 7 Days "
             android:textColor="@color/white"
@@ -99,17 +101,20 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/mainPostBtn"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/show" />
+            app:layout_constraintTop_toBottomOf="@+id/weatherHomeIcon" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/future_weather_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="40dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mainPostBtn" />
+            app:layout_constraintTop_toBottomOf="@+id/mainFuture"
+            app:layout_constraintVertical_bias="1.0" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

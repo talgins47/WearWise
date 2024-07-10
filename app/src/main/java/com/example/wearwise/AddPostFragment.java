@@ -32,7 +32,7 @@ public class AddPostFragment extends Fragment {
     FragmentAddPostBinding binding;
     ActivityResultLauncher<Void> cameraLauncher;
     Boolean isPicSelected = false;
-    User user;
+    String username;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,8 +78,15 @@ public class AddPostFragment extends Fragment {
                 return;
             }
 
+            Model.instance().getLoggedUserUsername().observe(getViewLifecycleOwner(), user -> {
+                if (user != null && user.username != null) {
+                    String username = user.username;
+                    this.username = username;
+                }
+            });
+
             String degreeWithCelsius = degree + "°C";
-            Post pt = new Post("", city, message, degreeWithCelsius, System.currentTimeMillis());
+            Post pt = new Post(username,"", city, message, degreeWithCelsius, System.currentTimeMillis());
 
             if (isPicSelected) {
                 binding.imagePost.setDrawingCacheEnabled(true);

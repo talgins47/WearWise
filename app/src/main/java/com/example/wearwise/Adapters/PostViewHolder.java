@@ -7,8 +7,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.wearwise.ProfilePageFragmentDirections;
 import com.example.wearwise.R;
 import com.example.wearwise.model.Post;
 import com.squareup.picasso.Picasso;
@@ -23,6 +26,8 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
     TextView timeAgoTextView;
     TextView tempTextView;
     TextView describeTextView;
+    ImageView editButton;
+
 
     public PostViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -30,9 +35,11 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         this.timeAgoTextView = itemView.findViewById(R.id.time_post);
         this.tempTextView = itemView.findViewById(R.id.temp_post);
         this.describeTextView = itemView.findViewById(R.id.describe_ago);
+        this.editButton = itemView.findViewById(R.id.edit_btn);
+
     }
 
-    public void bind(Post post, int pos) {
+    public void bind(Post post, boolean isProfilePage) {
         if (Objects.equals(post.postPicPath, "")) {
             this.postImage.setImageResource(R.drawable.girl);
         } else {
@@ -59,6 +66,20 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         }
 
         timeAgoTextView.setText(timeAgo);
+        tempTextView.setText(post.getDegree());
+        describeTextView.setText(post.getDescribe());
+
+        if (isProfilePage) {
+            editButton.setVisibility(View.VISIBLE);
+            editButton.setOnClickListener(v -> {
+                String postId = post.getUsername(); // Replace with your post ID getter
+                // Navigate with arguments if needed
+                NavDirections action = ProfilePageFragmentDirections.actionProfilePageFragmentToEditPostFragment();
+                Navigation.findNavController(v).navigate(action);
+            });
+        } else {
+            editButton.setVisibility(View.GONE);
+        }
     }
 
 

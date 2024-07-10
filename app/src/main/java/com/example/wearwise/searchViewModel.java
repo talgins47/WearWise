@@ -15,5 +15,7 @@ public class searchViewModel extends ViewModel {
     }
     public void setData(List<Post> data){this.data=data;}
 
+
+
 }
 

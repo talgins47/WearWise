@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_profilePageFragment_to_editProfile"
             app:destination="@id/editProfile" />
+        <action
+            android:id="@+id/action_profilePageFragment_to_editPostFragment"
+            app:destination="@id/editPostFragment" />
     </fragment>
     <fragment
         android:id="@+id/likePhotosFragment"
@@ -42,8 +45,8 @@
             android:id="@+id/action_home_pageFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
         <action
-            android:id="@+id/action_home_pageFragment_to_postRecyclerList"
-            app:destination="@id/postRecyclerList" />
+            android:id="@+id/action_home_pageFragment_to_postRecyclerList"/>
+
         <action
             android:id="@+id/action_home_pageFragment_to_searchFragment2"
             app:destination="@id/searchFragment" />
@@ -61,9 +64,13 @@
             app:destination="@id/profilePageFragment" />
     </fragment>
     <fragment
-        android:id="@+id/postRecyclerList"
-        android:name="com.example.wearwise.PostRecyclerList"
-        android:label="fragment_post_recycler_list"
-        tools:layout="@layout/fragment_post_recycler_list" />
-    />
+        android:id="@+id/editPostFragment"
+        android:name="com.example.wearwise.EditPostFragment"
+        android:label="EditPostFragment"
+        tools:layout="@layout/fragment_edit_post" >
+        <action
+            android:id="@+id/action_editPostFragment_to_postPageFragment"
+            app:destination="@id/postPageFragment" />
+    </fragment>
+
 </navigation>

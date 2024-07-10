@@ -213,7 +213,15 @@ public class FireBaseModel {
         });
     }
 
-
+   /* public void updatePost(Post post, Model.Listener<Void> listener) {
+        db.collection("posts").document(post.id).update(Post.toJson(post)).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Model.instance().getRefreshPosts();
+                listener.onComplete(null);
+            }
+        });
+    }*/
     public String getLoggedUserUsername() {
         String username = mAuth.getCurrentUser().getDisplayName();
         return username;
@@ -263,4 +271,15 @@ public class FireBaseModel {
     }
 
 
+    public void updatePost(Post post, Model.Listener<Void> listener) {
+        db.collection("Posts").document(post.username).update(Post.toJson(post)).addOnCompleteListener(new OnCompleteListener<Void>() {
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Model.instance().refreshAllUsers();
+                    listener.onComplete(null);
+
+                }
+            }
+        });
+    }
 }

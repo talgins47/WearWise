@@ -52,20 +52,25 @@ public class Model {
 
     public LiveData<User> getLoggedUserUsername(){
 
-        String username=firebaseModel.getLoggedUserUsername();
-        if (username!=null){
-            this.username=username;
+        // Get the logged user username from Firebase
+        String username = firebaseModel.getLoggedUserUsername();
+
+        // Check if the username is not null and set the class-level username variable
+        if (username != null) {
+            this.username = username;
         }
 
+        // Check if the user LiveData is null
+        if (user == null) {
+            // Fetch user data from the local database based on the username
+            user = localdb.UserDao().getUserByUsername(this.username);
 
-        if (user==null){
-            user=localdb.UserDao().getUserByUsername(this.username);
+            // Refresh all users from the remote database or other sources if necessary
             refreshAllUsers();
-
         }
 
+        // Return the user LiveData
         return user;
-
     }
 
     public void refreshAllUsers(){
@@ -102,10 +107,6 @@ public class Model {
         cities.add(11,"oslo");
         cities.add(12,"kopenhagen");
 
-
-
-
-
         return cities;
     }
 
@@ -122,18 +123,22 @@ public class Model {
         refreshAllUsers();
     }
 
+    public void updatePost(Post post, Listener<Void> listener) {
+        firebaseModel.updatePost(post,listener);
+        getRefreshPosts();
+    }
+
+
     public interface Listener<T> {
         void onComplete(T data);
     }
 
-    private LiveData<List<Post>> postList;
-   /* public LiveData<List<Post>> getAllPosts() {
-        if (postList == null) {
-            postList = localdb.postsDao().getAll();
-        }
-        return postList;
-    }
-*/
+  /*  LiveData<Post> post;
+    public LiveData<Post> getPostByUsername(String username) {
+        post=localdb.postsDao().getPostByusername(username);
+        return post;
+    }*/
+
     public void getRefreshPosts() {
         //get local last update
         Long localLastUpdate = Post.getLocalLastUpdate();
@@ -153,27 +158,11 @@ public class Model {
         });
     }
 
-
-/*    public void getPostByCity(String city,Listener<List<Post>> callback) {
+   /* public void updatePost(Post post,Listener<Void> listener) {
+        firebaseModel.updatePost(post,listener);
         getRefreshPosts();
 
-        executor.execute(()->{
-            StringBuilder queryBuilder = new StringBuilder("SELECT * FROM Post WHERE 1=1 ");
-
-            List<Object> args = new ArrayList<>();
-
-            if (!Objects.equals(city,"city")) {
-                args.add(city);
-            }
-            SimpleSQLiteQuery query = new SimpleSQLiteQuery(queryBuilder.toString(), args.toArray());
-
-            List<Post> data= localdb.postsDao().getPostByCity(city);
-            mainHandler.post(()->callback.onComplete(data));
-        });
-
-
     }*/
-
 
     public void addPost(Post post, Listener<Void> postListener) {
         firebaseModel.addPost(post,(Void)->{
@@ -203,11 +192,6 @@ public class Model {
         user=null;
 
     }
-/*    public void currentUserInfo(){
-        return firebaseModel.currentUserInfo():
-    }*/
-
-
 
     public boolean isUserLog(){
         return firebaseModel.isUserLog();
@@ -246,7 +230,31 @@ public class Model {
             mainHandler.post(()->listener.onComplete(data));
         });
 
-
     }
+
+  /*  public void getUserPosts(String username, GetUserPostsListener listener) {
+        AppExecutors.getInstance().diskIO().execute(() -> {
+            List<Post> posts = localDb.getPostsByUsername(username);
+            AppExecutors.getInstance().mainThread().execute(() -> listener.onComplete(posts));
+        });*/
+  public void getPostsByUsername(String username,Listener<List<Post>> listener){
+      getRefreshPosts();
+
+      executor.execute(()->{
+          StringBuilder queryBuilder = new StringBuilder("SELECT * FROM Post WHERE 1=1 ");
+
+          List<Object> args = new ArrayList<>();
+
+          if (!Objects.equals(username,"username")) {
+              queryBuilder.append(" AND username = ?");
+              args.add(username);
+          }
+
+          SimpleSQLiteQuery query = new SimpleSQLiteQuery(queryBuilder.toString(), args.toArray());
+          List<Post> data= localdb.postsDao().getPostsByQuery(query);
+          mainHandler.post(()->listener.onComplete(data));
+      });
+
+  }
 
 }

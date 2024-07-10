@@ -33,11 +33,6 @@ xmlns:android="http://schemas.android.com/apk/res/android"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/editProfile" />
 
-        <!-- Full Name TextInputLayout -->
-
-    <!-- Username TextInputLayout -->
-
-    <!-- Bio TextInputLayout -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/bioLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -58,15 +53,34 @@ xmlns:android="http://schemas.android.com/apk/res/android"
             android:textSize="35dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-        <ImageButton
-            android:id="@+id/cameraChangeProfile"
-            android:layout_width="70dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="76dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/baseline_add_a_photo_24"
-            app:layout_constraintStart_toEndOf="@id/editProfileIcon"
-            app:layout_constraintTop_toTopOf="@id/editProfileIcon" />
+
+    <ImageButton
+        android:id="@+id/cameraChangeProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="88dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:src="@drawable/baseline_add_a_photo_24"
+        app:layout_constraintStart_toEndOf="@id/editProfileIcon"
+        app:layout_constraintTop_toTopOf="@id/editProfileIcon" />
+
+    <ImageButton
+        android:id="@+id/galleryBtnEdit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="47dp"
+        android:layout_marginTop="222dp"
+        android:layout_marginEnd="32dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:src="@android:drawable/ic_menu_gallery"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cameraChangeProfile"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/editHomeCitySpinner"

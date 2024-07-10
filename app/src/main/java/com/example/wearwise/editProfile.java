@@ -4,8 +4,11 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -42,124 +45,124 @@ import java.util.UUID;
 
 public class editProfile extends Fragment {
 
-    FragmentEditProfileBinding binding;
-    FirebaseFirestore db;
-    ProgressBar progressBar;
-    String city="";
-    String postPicPath = "";
-    String bio;
-    String selectedCity="";
+    private FragmentEditProfileBinding binding;
+    private FirebaseFirestore db;
+    private ProgressBar progressBar;
+    private String city = "";
+    private String postPicPath = "";
+    private String bio;
+    private String selectedCity = "";
+    private Boolean isPicSelected = false;
+    private boolean photoSelected = false;
+    private UserViewModel userViewModel;
 
-   // ActivityResultLauncher<Void> cameraAppLauncher;
-    //ActivityResultLauncher<String> galleryAppLauncher;
-    boolean photoSelected =false;
-    UserViewModel userViewModel;
-
+    private ActivityResultLauncher<Void> cameraAppLauncher;
+    private ActivityResultLauncher<String> galleryAppLauncher;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        userViewModel=new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
-/*        cameraAppLauncher = registerForActivityResult(new ActivityResultContracts.TakePicturePreview(), new ActivityResultCallback<Bitmap>() {
+        cameraAppLauncher = registerForActivityResult(new ActivityResultContracts.TakePicturePreview(), new ActivityResultCallback<Bitmap>() {
             @Override
-            public void onActivityResult(Bitmap o) {
-                if (o != null) {
-                    binding.profile.setImageBitmap(o);
-                    photoSelected =true;
+            public void onActivityResult(Bitmap result) {
+                if (result != null) {
+                    binding.editProfileIcon.setImageBitmap(result);
+                    isPicSelected = true;
                 }
             }
         });
 
         galleryAppLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
             @Override
-            public void onActivityResult(Uri o) {
-                if (o != null) {
-                    binding.avatar.setImageURI(o);
-                    photoSelected =true;
+            public void onActivityResult(Uri result) {
+                if (result != null) {
+                    binding.editProfileIcon.setImageURI(result);
+                    isPicSelected = true;
                 }
             }
         });
-    }*/
-}
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        binding=FragmentEditProfileBinding.inflate(inflater,container,false);
-        View v=binding.getRoot();
-        //init postpicpath to the default image whitch is the profile in the drawable
-
-    /*    binding.cameraBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cameraAppLauncher.launch(null);
-            }
-        });
-
-        binding.gallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                galleryAppLauncher.launch("image/*");
-            }
-        });*/
-
-        userViewModel.getUser().observe(getViewLifecycleOwner(),(user)->{
-            binding.bioEditText.setText(user.bio);
-            if(!user.postPicPath.equals(""))
-                Picasso.get().load(user.postPicPath).into(binding.editProfileIcon);
-            else{
-                binding.editProfileIcon.setImageResource(R.drawable.profile);
-            }
-            binding.editHomeCitySpinner.setAdapter(SpinnerAdapter.setCitySpinner(getContext()));
-            binding.editHomeCitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    selectedCity = parent.getItemAtPosition(position).toString();
-                    if (!Objects.equals(selectedCity, "city") && !Objects.equals(selectedCity, city)) {
-                        city = selectedCity;
-                    }
-                    else{
-                        selectedCity= user.city;
-                    }
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                }
-            });
-            binding.saveChangesBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    if (photoSelected) {
-                        binding.editProfileIcon.setDrawingCacheEnabled(true);
-                        binding.editProfileIcon.buildDrawingCache();
-                        Bitmap bitmap = ((BitmapDrawable) binding.editProfileIcon.getDrawable()).getBitmap();
-                        String id = UUID.randomUUID().toString();
-
-                        Model.instance().uploadImage(id, bitmap, (url) -> {
-                            User updatedUser = new User(user.fullName, user.username, user.email, selectedCity, postPicPath, binding.bioEditText.getText().toString());
-                            updateUser(v, updatedUser);
-                        });
-
-
-                    } else {
-                        User updatedUser = new User(user.fullName, user.username, user.email, selectedCity, postPicPath, binding.bioEditText.getText().toString());
-                        updateUser(v, updatedUser);
-
-                    }
-                }
-            });
-        });
-
-        return v;
     }
 
-    public void updateUser(View v,User updatedUser){
-        Model.instance().updateUser(updatedUser, unused ->{
-                    Navigation.findNavController(v).popBackStack();
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentEditProfileBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
 
+        setupUI();
+
+        userViewModel.getUser().observe(getViewLifecycleOwner(), user -> {
+            binding.bioEditText.setText(user.getBio());
+            if (!user.getPostPicPath().isEmpty()) {
+                Picasso.get().load(user.getPostPicPath()).into(binding.editProfileIcon);
+            } else {
+                binding.editProfileIcon.setImageResource(R.drawable.profile);
+            }
+            setupCitySpinner(user);
+        });
+
+        return view;
+    }
+
+    private void setupUI() {
+        binding.cameraChangeProfile.setOnClickListener(view -> cameraAppLauncher.launch(null));
+
+        binding.galleryBtnEdit.setOnClickListener(view -> galleryAppLauncher.launch("image/*"));
+
+        binding.saveChangesBtn.setOnClickListener(view -> saveChanges());
+    }
+
+    private void setupCitySpinner(User user) {
+        binding.editHomeCitySpinner.setAdapter(SpinnerAdapter.setCitySpinner(getContext()));
+        binding.editHomeCitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedCity = parent.getItemAtPosition(position).toString();
+                if (!Objects.equals(selectedCity, "city") && !Objects.equals(selectedCity, city)) {
+                    city = selectedCity;
+                } else {
+                    selectedCity = user.getCity();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+    }
+
+    private void saveChanges() {
+        userViewModel.getUser().observe(getViewLifecycleOwner(), user -> {
+            if (isPicSelected) {
+                binding.editProfileIcon.setDrawingCacheEnabled(true);
+                binding.editProfileIcon.buildDrawingCache();
+                Bitmap bitmap = ((BitmapDrawable) binding.editProfileIcon.getDrawable()).getBitmap();
+                String id = UUID.randomUUID().toString();
+
+                Model.instance().uploadImage(id, bitmap, url -> {
+                    if (url != null) {
+                        user.setPostPicPath(url);
+                    }
+                    updateUser(user);
                 });
+            } else {
+                updateUser(user);
+            }
+        });
+    }
+
+    private void updateUser(User user) {
+        User updatedUser = new User(
+                user.getFullName(),
+                user.getUsername(),
+                user.getEmail(),
+                selectedCity,
+                user.getPostPicPath(),
+                binding.bioEditText.getText().toString()
+        );
+
+        Model.instance().updateUser(updatedUser, unused -> {
+            Navigation.findNavController(getView()).popBackStack();
+        });
     }
 }

@@ -68,7 +68,7 @@ public class SearchFragment extends Fragment {
                             int drawableId = WeatherModel.instance.getDrawableForTemperature(weather.getTemp());
                             binding.ImageWeather.setImageResource(drawableId);
 
-                            adapter = new PostAdapter(viewModel.getData(), inflater);
+                            adapter = new PostAdapter(viewModel.getData(), inflater, false);
                             postRecyclerList=binding.PostsRecyclerList;
                             postRecyclerList.setHasFixedSize(true);
                             postRecyclerList.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -130,5 +130,3 @@ public class SearchFragment extends Fragment {
     }
 
 }
-
-

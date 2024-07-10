@@ -10,21 +10,20 @@ import com.example.wearwise.model.Model;
 import com.example.wearwise.model.User;
 
 public class UserViewModel extends ViewModel {
-    private final MutableLiveData<User> userLiveData = new MutableLiveData<>();
+    private LiveData<User> user;
 
-    private  LiveData<User> user;
-
-        public LiveData<User> getUser() {
-            if (user == null) {
-                user = Model.instance().getLoggedUserUsername();
-            }
-            return user;
+    public LiveData<User> getUser() {
+        if (user == null) {
+            user = Model.instance().getLoggedUserUsername();
         }
-
-        private  void loadUser() {
-        }
-
-        public  void refreshUser() {
-            loadUser();
-        }
+        return user;
     }
+
+    public void refreshUser() {
+        loadUser();
+    }
+
+    private void loadUser() {
+        // You can add any additional logic here if needed to refresh the user data
+    }
+}

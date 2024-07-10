@@ -27,4 +27,8 @@ public interface PostsDao {
 
     @Delete
     void delete(Post post);
+
+
+    @Query("select * from Post where username=:username")
+    LiveData<Post> getPostByUsername(String username);
 }

@@ -1,5 +1,6 @@
 package com.example.wearwise.Adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +18,16 @@ import java.util.List;
 public class PostAdapter extends RecyclerView.Adapter<PostViewHolder>{
     List<Post> postData = new ArrayList<>();
     LayoutInflater inflater;
+    private Context context;
+    private String currentUsername;
+    private boolean isProfilePage;
 
 
-    public PostAdapter(List<Post> postData, LayoutInflater inflater) {
+
+    public PostAdapter(List<Post> postData, LayoutInflater inflater, boolean isProfilePage) {
         this.inflater = inflater;
+        this.isProfilePage = isProfilePage;
+
     }
 
     @NonNull
@@ -29,6 +36,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder>{
 
         View inflate = inflater.inflate(R.layout.search_post_row, parent, false);
         return new PostViewHolder(inflate);
+
+
     }
 
     public void setPostData(List<Post> postData){
@@ -40,8 +49,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         Post post = postData.get(position);
-
-        holder.bind(post, position);
+        holder.bind(post, isProfilePage);
 
     }
 

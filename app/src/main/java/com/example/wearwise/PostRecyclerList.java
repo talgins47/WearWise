@@ -44,11 +44,11 @@ public class PostRecyclerList extends Fragment {
                 city = parent.getItemAtPosition(position).toString();
                 binding.postCity.setText(city);
                 if (Objects.equals(city, "city")) {
-                    adapter = new PostAdapter(null, inflater);
+                    adapter = new PostAdapter(null, inflater, true);
                     binding.postRecyclerView.setAdapter(adapter);
                 } else {
                     viewModel.getPostsByCity(city).observe(getViewLifecycleOwner(), posts -> {
-                        adapter = new PostAdapter(posts, getLayoutInflater());
+                        adapter = new PostAdapter(posts, getLayoutInflater(), true);
                         binding.postRecyclerView.setAdapter(adapter);
                     });
                 }

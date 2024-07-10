@@ -2,6 +2,7 @@ package com.example.wearwise;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -33,17 +34,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.splash_screen);
 
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.main_navhost);
-        navController = navHostFragment.getNavController();
-        NavigationUI.setupActionBarWithNavController(this, navController);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setContentView(R.layout.activity_main);
 
-        BottomNavigationView navView = findViewById(R.id.main_bottom_navigation);
-        NavigationUI.setupWithNavController(navView, navController);
+                Toolbar toolbar = findViewById(R.id.toolbar);
+                setSupportActionBar(toolbar);
+
+                NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.main_navhost);
+                navController = navHostFragment.getNavController();
+                NavigationUI.setupActionBarWithNavController(MainActivity.this, navController);
+
+                BottomNavigationView navView = findViewById(R.id.main_bottom_navigation);
+                NavigationUI.setupWithNavController(navView, navController);
+            }
+        }, 1500);
     }
 
     @Override

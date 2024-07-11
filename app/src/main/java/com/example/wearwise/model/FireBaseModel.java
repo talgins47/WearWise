@@ -284,6 +284,6 @@ public class FireBaseModel {
     }
 
     public void deletePost(Post post) {
-        db.collection("Post").document(post.id).delete();
+        db.collection("Posts").document(post.id).delete();
     }
 }

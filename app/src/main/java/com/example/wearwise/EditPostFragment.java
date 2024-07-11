@@ -44,32 +44,79 @@ public class EditPostFragment extends Fragment {
     boolean isPhotoSelected;
     String username;
     private String selectedCity = "";
+    pictureViewModel viewModel;
 
     private ActivityResultLauncher<Void> cameraAppLauncher;
     private ActivityResultLauncher<String> galleryAppLauncher;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        cameraAppLauncher = registerForActivityResult(new ActivityResultContracts.TakePicturePreview(), new ActivityResultCallback<Bitmap>() {
+            @Override
+            public void onActivityResult(Bitmap o) {
+                if (o != null) {
+                    viewModel.setBitmap(o);
+                    binding.imagePost.setImageBitmap(viewModel.getBitmap());
+                    isPhotoSelected = true;
+                }
+            }
+        });
+
+        galleryAppLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
+            @Override
+            public void onActivityResult(Uri o) {
+                if (o != null) {
+                    viewModel.setUrl(o);
+                    binding.imagePost.setImageURI(viewModel.getUrl());
+                    isPhotoSelected = true;
+                }
+            }
+        });
+    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentEditPostBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
+
+        viewModel=new ViewModelProvider(this).get(pictureViewModel.class);
+        if (viewModel.getBitmap()!=null)
+            binding.imagePost.setImageBitmap(viewModel.getBitmap());
+        if (viewModel.getUrl()!=null)
+            binding.imagePost.setImageURI(viewModel.getUrl());
+
         Model.instance().getLoggedUserUsername().observe(getViewLifecycleOwner(), user -> {
             if (user != null && user.username != null) {
                 String newUsername = user.username;
                 this.username = newUsername;
 
-                // Fetch the post to edit
                 Model.instance().getPostsByUsername(username, (posts) -> {
                     if (posts != null && !posts.isEmpty()) {
-                        // Assuming you want to edit the first post for simplicity
+                       // Picasso.get().load(Uri.parse(post.postPicPath)).into(binding.imagePost);
                         post = posts.get(0);
 
-                        // Populate UI with post data
                         binding.DescribePost.setText(post.describe);
-                        binding.degreePost.setText(post.degree + " °C"); // Ensure °C symbol is always appended
+                        binding.degreePost.setText(post.degree + " °C");
+                        // Ensure °C symbol is always appended
 
                     }
                 });
+            }
+        });
+
+        binding.cameraBtnPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cameraAppLauncher.launch(null);
+            }
+        });
+
+        binding.galleryBtnPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                galleryAppLauncher.launch("image/*");
             }
         });
 
@@ -77,9 +124,24 @@ public class EditPostFragment extends Fragment {
             post.describe = binding.DescribePost.getText().toString();
             post.degree = binding.degreePost.getText().toString().replace(" °C", ""); // Remove °C symbol for saving
             post.city = selectedCity;
+            if (isPhotoSelected) {
+                binding.imagePost.setDrawingCacheEnabled(true);
+                binding.imagePost.buildDrawingCache();
+                Bitmap bitmap = ((BitmapDrawable) binding.imagePost.getDrawable()).getBitmap();
+                Model.instance().uploadImage(post.id, bitmap, (url) -> {
+                    post.setPostPicPath(url);
+                    Model.instance().updatePost(post, (unused) -> {
+                        Navigation.findNavController(v).popBackStack(R.id.profilePageFragment, false);
+                    });
+                });
+
+            } else {
+                Model.instance().updatePost(post, (unused) -> {
+                    Navigation.findNavController(v).popBackStack(R.id.profilePageFragment, false);
+                });
+            }
 
             Model.instance().updatePost(post, (unused) -> {
-                Navigation.findNavController(v).popBackStack(R.id.profilePageFragment, false);
             });
         });
         binding.deleteBtn.setOnClickListener((v) -> {
@@ -88,7 +150,6 @@ public class EditPostFragment extends Fragment {
                     .setMessage("Are you sure you want to delete the post? ")
                     .setPositiveButton("yes", (dialog, which) -> {
                         Model.instance().deletePost(post, (unused) -> {
-                            Navigation.findNavController(v).popBackStack(R.id.profilePageFragment, false);
                         });
                     }).setNegativeButton("No", (dialog, which) -> {
                     })

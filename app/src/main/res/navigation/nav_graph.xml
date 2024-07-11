@@ -69,8 +69,8 @@
         android:label="EditPostFragment"
         tools:layout="@layout/fragment_edit_post" >
         <action
-            android:id="@+id/action_editPostFragment_to_postPageFragment"
-            app:destination="@id/postPageFragment" />
+            android:id="@+id/action_editPostFragment_to_profilePageFragment"
+            app:destination="@id/profilePageFragment" />
     </fragment>
 
 </navigation>

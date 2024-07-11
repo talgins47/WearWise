@@ -99,7 +99,7 @@ public class EditPostFragment extends Fragment {
 
                         binding.DescribePost.setText(post.describe);
                         binding.degreePost.setText(post.degree + " °C");
-                        // Ensure °C symbol is always appended
+                        Picasso.get().load(post.getPostPicPath()).into(binding.imagePost);
 
                     }
                 });

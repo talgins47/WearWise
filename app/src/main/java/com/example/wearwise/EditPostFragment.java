@@ -45,9 +45,6 @@ public class EditPostFragment extends Fragment {
     String username;
     private String selectedCity = "";
 
-
-
-
     private ActivityResultLauncher<Void> cameraAppLauncher;
     private ActivityResultLauncher<String> galleryAppLauncher;
 
@@ -55,8 +52,6 @@ public class EditPostFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentEditPostBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
-
-        // Initialize your ViewModel and launchers here
 
         Model.instance().getLoggedUserUsername().observe(getViewLifecycleOwner(), user -> {
             if (user != null && user.username != null) {
@@ -79,39 +74,46 @@ public class EditPostFragment extends Fragment {
         });
 
         binding.saveEditBtn.setOnClickListener(v -> {
-            // Update post data from UI
             post.describe = binding.DescribePost.getText().toString();
             post.degree = binding.degreePost.getText().toString().replace(" °C", ""); // Remove °C symbol for saving
-            post.city = selectedCity; // Ensure city is updated if changed
+            post.city = selectedCity;
 
-            // Perform update logic
             Model.instance().updatePost(post, (unused) -> {
-                // Navigate back to profile page after update
                 Navigation.findNavController(v).popBackStack(R.id.profilePageFragment, false);
             });
         });
+        binding.deleteBtn.setOnClickListener((v) -> {
+            new AlertDialog.Builder(getContext())
+                    .setTitle("Warning!")
+                    .setMessage("Are you sure you want to delete the post? ")
+                    .setPositiveButton("yes", (dialog, which) -> {
+                        Model.instance().deletePost(post, (unused) -> {
+                            Navigation.findNavController(v).popBackStack(R.id.profilePageFragment, false);
+                        });
+                    }).setNegativeButton("No", (dialog, which) -> {
+                    })
+                    .create().show();
 
-        // Set up input filter for degree EditText
-        InputFilter inputFilter = new InputFilter() {
-            @Override
-            public CharSequence filter(CharSequence source, int start, int end,
-                                       Spanned dest, int dstart, int dend) {
-                try {
-                    String input = dest.subSequence(0, dstart) + source.toString() + dest.subSequence(dend, dest.length());
-                    int value = Integer.parseInt(input);
-                    if (value >= -20 && value <= 50) {
-                        return null; // Accept this number
+            InputFilter inputFilter = new InputFilter() {
+                @Override
+                public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                    try {
+                        String input = dest.subSequence(0, dstart) + source.toString() + dest.subSequence(dend, dest.length());
+                        int value = Integer.parseInt(input);
+                        if (value >= -20 && value <= 50) {
+                            return null; // Accept this number
+                        }
+                    } catch (NumberFormatException ignored) {
                     }
-                } catch (NumberFormatException ignored) {
+                    return "";
                 }
-                return ""; // Reject this input
-            }
-        };
+            };
 
-        // Apply input filter to degree EditText
-        binding.degreePost.setFilters(new InputFilter[]{inputFilter});
+            binding.degreePost.setFilters(new InputFilter[]{inputFilter});
 
+        });
         return view;
+
     }
 }
 

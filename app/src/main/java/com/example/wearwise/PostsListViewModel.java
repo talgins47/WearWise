@@ -12,16 +12,21 @@ import java.util.List;
 
 public class PostsListViewModel extends ViewModel {
     private MutableLiveData<List<Post>> postData = new MutableLiveData<>();
-/*
-    private MutableLiveData<List<Post> posts = new MutableLiveData<>();
-*/
+
 
     public LiveData<List<Post>> getPostsByCity(String city) {
 
         return postData;
     }
+    public LiveData<List<Post>> getPostsByUsername(String username) {
+        Model.instance().getPostsByUsername(username, posts -> {
+            postData.setValue(posts);
+        });
+        return postData;
+    }
 
-  /*  public LiveData<List<Post>> getPostsByUsername(String username){
-        return posts;
-    }*/
+    public void setPosts(List<Post> posts) {
+        postData.setValue(posts);
+    }
+
 }

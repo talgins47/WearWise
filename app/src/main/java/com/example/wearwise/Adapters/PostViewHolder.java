@@ -27,6 +27,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
     TextView tempTextView;
     TextView describeTextView;
     ImageView editButton;
+    ImageView deleteButton;
 
 
     public PostViewHolder(@NonNull View itemView) {
@@ -73,11 +74,11 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
             editButton.setVisibility(View.VISIBLE);
             editButton.setOnClickListener(v -> {
                 String postId = post.getUsername(); // Replace with your post ID getter
-                // Navigate with arguments if needed
                 NavDirections action = ProfilePageFragmentDirections.actionProfilePageFragmentToEditPostFragment();
                 Navigation.findNavController(v).navigate(action);
             });
         } else {
+            deleteButton.setVisibility(View.GONE);
             editButton.setVisibility(View.GONE);
         }
     }

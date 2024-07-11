@@ -1,5 +1,6 @@
 package com.example.wearwise;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,30 +34,27 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 
 public class ProfilePageFragment extends Fragment {
     private FragmentProfilePageBinding binding;
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
     private User user;
-    UserViewModel userViewModel;
-    PostsListViewModel postsListViewModel;
-    String currentUsername;
-    String username;
-    PostAdapter adapter;
-    RecyclerView postRecyclerList;
-    searchViewModel viewModel;
-
-
+    private UserViewModel userViewModel;
+    private PostsListViewModel postsListViewModel;
+    private String username;
+    private PostAdapter adapter;
+    private RecyclerView postRecyclerList;
+    private searchViewModel viewModel;
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        viewModel=new ViewModelProvider(this).get(searchViewModel.class);
-
+        postsListViewModel = new ViewModelProvider(requireActivity()).get(PostsListViewModel.class);
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,25 +72,18 @@ public class ProfilePageFragment extends Fragment {
                 fetchUserPosts(username);
             }
         });
-        Model.instance().getLoggedUserUsername().observe(getViewLifecycleOwner(), user -> {
-            if (user != null && user.username != null) {
-                String newUsername = user.username;
-                this.username = newUsername;
+
+        postsListViewModel.getPostsByUsername(username).observe(getViewLifecycleOwner(), posts -> {
+            if (posts != null) {
+                adapter.setPostData(posts);
             }
         });
 
-
-        adapter = new PostAdapter(viewModel.getData(), inflater, true);
-        postRecyclerList=binding.UserPostsList;
+        adapter = new PostAdapter(new ArrayList<>(), inflater, true);
+        postRecyclerList = binding.UserPostsList;
         postRecyclerList.setHasFixedSize(true);
         postRecyclerList.setLayoutManager(new LinearLayoutManager(getContext()));
         postRecyclerList.setAdapter(adapter);
-
-        Model.instance().getPostsByUsername(username, (data) -> {
-            viewModel.setData(data);
-            adapter.setPostData(data);
-        });
-
 
         binding.LogOutButton.setOnClickListener(v -> {
             Model.instance().logOut();
@@ -101,21 +93,13 @@ public class ProfilePageFragment extends Fragment {
         });
 
         binding.editProfileButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_profilePageFragment_to_editProfile));
+
         return view;
     }
+
     private void fetchUserPosts(String username) {
-        adapter = new PostAdapter(viewModel.getData(), getLayoutInflater(), true);
-        postRecyclerList = binding.UserPostsList;
-        postRecyclerList.setHasFixedSize(true);
-        postRecyclerList.setLayoutManager(new LinearLayoutManager(getContext()));
-        postRecyclerList.setAdapter(adapter);
-
-        Model.instance().getPostsByUsername(username, data -> {
-            viewModel.setData(data);
-            adapter.setPostData(data);
-        });
+        postsListViewModel.getPostsByUsername(username);
     }
-
 
     private void setProfile() {
         binding.fullName.setText(user.getFullName());

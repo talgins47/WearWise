@@ -272,7 +272,7 @@ public class FireBaseModel {
 
 
     public void updatePost(Post post, Model.Listener<Void> listener) {
-        db.collection("Posts").document(post.username).update(Post.toJson(post)).addOnCompleteListener(new OnCompleteListener<Void>() {
+        db.collection("Posts").document(post.id).update(Post.toJson(post)).addOnCompleteListener(new OnCompleteListener<Void>() {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Model.instance().refreshAllUsers();
@@ -281,5 +281,9 @@ public class FireBaseModel {
                 }
             }
         });
+    }
+
+    public void deletePost(Post post) {
+        db.collection("Post").document(post.id).delete();
     }
 }

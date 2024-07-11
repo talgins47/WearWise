@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 BottomNavigationView navView = findViewById(R.id.main_bottom_navigation);
                 NavigationUI.setupWithNavController(navView, navController);
             }
-        }, 1500);
+        }, 1000);
     }
 
     @Override

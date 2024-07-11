@@ -58,4 +58,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder>{
         if(postData == null) return 0;
         return postData.size();
     }
+    public void updateData(List<Post> newPosts) {
+        this.postData = newPosts;
+        notifyDataSetChanged();
+    }
 }

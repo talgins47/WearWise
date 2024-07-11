@@ -158,11 +158,14 @@ public class Model {
         });
     }
 
-   /* public void updatePost(Post post,Listener<Void> listener) {
-        firebaseModel.updatePost(post,listener);
+    public void deletePost(Post post, Listener<Void> listener) {
+        firebaseModel.deletePost(post);
+        executor.execute(()->{
+            localdb.postsDao().delete(post);
+            mainHandler.post(()->{listener.onComplete(null);});
+        });
         getRefreshPosts();
-
-    }*/
+    }
 
     public void addPost(Post post, Listener<Void> postListener) {
         firebaseModel.addPost(post,(Void)->{

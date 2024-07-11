@@ -14,10 +14,6 @@
         android:icon="@drawable/add_24dp"
         android:title="New Post" />
     <item
-        android:id="@+id/likePhotosFragment"
-        android:icon="@drawable/favorite_border_24dp"
-        android:title="Like" />
-    <item
         android:id="@+id/profilePageFragment"
         android:icon="@drawable/profile"
         android:title="Profile" />
